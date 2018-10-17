@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mo.fang.springcloudsystem.system.mapper.SysRoleMapper" >
+  <resultMap id="BaseResultMap" type="com.mo.fang.springcloudsystem.system.entity.SysRole" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="INSERTTIME" property="inserttime" jdbcType="TIMESTAMP" />
+    <result column="INSERTUSERNAME" property="insertusername" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, CODE, NAME, INSERTTIME, INSERTUSERNAME
+  </sql>
+  <select id="findRoleNameByUserId" parameterType="java.lang.Integer" resultType="java.util.Set">
+    select rolename from oa_sys_role t where   exists (select 1 from oa_sys_uandr a where t.id = a.roleid and a.userid = #{id ,jdbcType=INTEGER})
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from oa_sys_role
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from oa_sys_role
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.mo.fang.springcloudsystem.system.entity.SysRole" >
+    insert into oa_sys_role (ID, CODE, NAME, 
+      INSERTTIME, INSERTUSERNAME)
+    values (#{id,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{inserttime,jdbcType=TIMESTAMP}, #{insertusername,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mo.fang.springcloudsystem.system.entity.SysRole" >
+    insert into oa_sys_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="code != null" >
+        CODE,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="inserttime != null" >
+        INSERTTIME,
+      </if>
+      <if test="insertusername != null" >
+        INSERTUSERNAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="inserttime != null" >
+        #{inserttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertusername != null" >
+        #{insertusername,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mo.fang.springcloudsystem.system.entity.SysRole" >
+    update oa_sys_role
+    <set >
+      <if test="code != null" >
+        CODE = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="inserttime != null" >
+        INSERTTIME = #{inserttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertusername != null" >
+        INSERTUSERNAME = #{insertusername,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mo.fang.springcloudsystem.system.entity.SysRole" >
+    update oa_sys_role
+    set CODE = #{code,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      INSERTTIME = #{inserttime,jdbcType=TIMESTAMP},
+      INSERTUSERNAME = #{insertusername,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

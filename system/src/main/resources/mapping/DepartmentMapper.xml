@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mo.fang.springcloudsystem.system.mapper.DepartmentMapper" >
+  <resultMap id="BaseResultMap" type="com.mo.fang.springcloudsystem.system.entity.Department" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="parentid" property="parentid" jdbcType="INTEGER" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="createname" property="createname" jdbcType="VARCHAR" />
+    <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, parentid, createtime, createname, updatetime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from oa_sys_department
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+    <select id="getDeparts" resultMap="BaseResultMap" parameterType="com.mo.fang.springcloudsystem.system.entity.Department">
+        select <include refid="Base_Column_List"/>
+        from oa_sys_department order by createname
+
+    </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from oa_sys_department
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.mo.fang.springcloudsystem.system.entity.Department" >
+    insert into oa_sys_department (id, name, parentid,
+      createtime, createname, updatetime
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{parentid,jdbcType=INTEGER},
+      #{createtime,jdbcType=TIMESTAMP}, #{createname,jdbcType=VARCHAR}, #{updatetime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+    <insert id="saveOrUpdateDepartment" parameterType="com.mo.fang.springcloudsystem.system.entity.Department">
+        insert into  oa_sys_department(
+        <if test="id!=null and id!=''">
+            id,
+        </if>
+        name,parentid,createtime,createname
+        ) values (
+        <if test="id != null and id!='' " >
+            #{id,jdbcType=INTEGER},
+        </if>
+        #{name,jdbcType=VARCHAR}, #{parentid,jdbcType=INTEGER},
+        sysdate(), #{createname,jdbcType=VARCHAR}
+        )
+        ON DUPLICATE KEY UPDATE
+        name = #{name,jdbcType=VARCHAR},
+        parentid = #{parentid,jdbcType=INTEGER},
+        updatetime = sysdate()
+    </insert>
+  <insert id="insertSelective" parameterType="com.mo.fang.springcloudsystem.system.entity.Department" >
+    insert into oa_sys_department
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="parentid != null" >
+        parentid,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="createname != null" >
+        createname,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null" >
+        #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createname != null" >
+        #{createname,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mo.fang.springcloudsystem.system.entity.Department" >
+    update oa_sys_department
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null" >
+        parentid = #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createname != null" >
+        createname = #{createname,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mo.fang.springcloudsystem.system.entity.Department" >
+    update oa_sys_department
+    set name = #{name,jdbcType=VARCHAR},
+      parentid = #{parentid,jdbcType=INTEGER},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      createname = #{createname,jdbcType=VARCHAR},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

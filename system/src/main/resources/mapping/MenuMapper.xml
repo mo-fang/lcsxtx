@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mo.fang.springcloudsystem.system.mapper.MenuMapper">
+    <resultMap id="BaseResultMap" type="com.mo.fang.springcloudsystem.system.entity.Menu">
+        <id column="ID" property="id" jdbcType="INTEGER"/>
+        <result column="MENU_URL" property="menuUrl" jdbcType="VARCHAR"/>
+        <result column="MENU_CLASS" property="menuClass" jdbcType="VARCHAR"/>
+        <result column="MENU_CODE" property="menuCode" jdbcType="VARCHAR"/>
+        <result column="MENU_NAME" property="menuName" jdbcType="VARCHAR"/>
+        <result column="PARENT_MENUCODE" property="parentMenucode" jdbcType="VARCHAR"/>
+        <result column="SEQUENCE" property="sequence" jdbcType="VARCHAR"/>
+        <result column="MENU_TYPE" property="menuType" jdbcType="VARCHAR"/>
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="ICON" property="icon" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    ID, MENU_URL, MENU_CLASS, MENU_CODE, MENU_NAME, PARENT_MENUCODE, SEQUENCE, MENU_TYPE, 
+    CREATE_TIME, ICON
+  </sql>
+    <select id="getAllMenus" resultMap="BaseResultMap" parameterType="com.mo.fang.springcloudsystem.system.entity.Menu">
+        select
+        <include refid="Base_Column_List"/>
+        FROM oa_sys_menu
+        <where>
+            <if test="menuName!=null and menuName!=''">
+                and MENU_NAME like  CONCAT('%',#{menuName,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="parentMenucode!=null and parentMenucode!=''">
+                and PARENT_MENUCODE = #{parentMenucode,jdbcType=VARCHAR}
+            </if>
+            <if test="menuType!=null and menuType!=''">
+                and MENU_TYPE = #{menuType,jdbcType=VARCHAR}
+            </if>
+        </where>
+        order by sequence
+    </select>
+    <select id="getMenuByUser" resultMap="BaseResultMap"
+            parameterType="com.mo.fang.springcloudsystem.system.entity.SysUser">
+        select
+        <include refid="Base_Column_List"/>
+        from oa_sys_menu t
+        <where>
+            <if test="user.username!=null and user.username!=''">
+                and exists (select 1 from oa_sys_mandb a where t.id = a.menu_id and exists
+                (select 1 from oa_sys_auth b where a.id = b.mbid and (b.ownerid =#{user.id} and b.type = '2' ) ))
+            </if>
+        </where>
+        union
+        select
+        <include refid="Base_Column_List"/>
+        from oa_sys_menu t
+        <where>
+            <if test="user.username!=null and user.username!=''">
+                and exists (select 1 from oa_sys_mandb a where t.id = a.menu_id and exists
+                (select 1 from oa_sys_auth b where a.id = b.mbid and (b.type = '1' and exists (select 1 from oa_sys_uandr c where b.ownerid = c.roleid and c.userid = #{user.id}))))
+            </if>
+        </where>
+    </select>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from oa_sys_menu
+        where ID = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from oa_sys_menu
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="saveOrUpdate" parameterType="com.mo.fang.springcloudsystem.system.entity.Menu" >
+        insert into oa_sys_menu (
+        <if test="id != null and id!='' " >
+            id,
+        </if>
+        MENU_URL, MENU_CLASS,
+        MENU_CODE, MENU_NAME, PARENT_MENUCODE,
+        SEQUENCE, MENU_TYPE, CREATE_TIME,
+        ICON)
+        values (
+        <if test="id != null and id!='' " >
+            #{id,jdbcType=INTEGER},
+        </if>
+        #{menuUrl,jdbcType=VARCHAR}, #{menuClass,jdbcType=VARCHAR},
+        #{menuCode,jdbcType=VARCHAR}, #{menuName,jdbcType=VARCHAR}, #{parentMenucode,jdbcType=VARCHAR},
+        #{sequence,jdbcType=VARCHAR}, #{menuType,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+        #{icon,jdbcType=VARCHAR})
+        ON DUPLICATE KEY UPDATE
+        MENU_URL =  #{menuUrl,jdbcType=VARCHAR},
+        MENU_CODE =  #{menuCode,jdbcType=VARCHAR},
+        MENU_NAME =  #{menuName,jdbcType=VARCHAR},
+        PARENT_MENUCODE = #{parentMenucode,jdbcType=VARCHAR},
+        MENU_TYPE = #{menuType,jdbcType=VARCHAR},
+        CREATE_TIME = sysdate()
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            select LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+    <insert id="insert" parameterType="com.mo.fang.springcloudsystem.system.entity.Menu">
+    insert into oa_sys_menu (ID, MENU_URL, MENU_CLASS, 
+      MENU_CODE, MENU_NAME, PARENT_MENUCODE, 
+      SEQUENCE, MENU_TYPE, CREATE_TIME, 
+      ICON)
+    values (#{id,jdbcType=INTEGER}, #{menuUrl,jdbcType=VARCHAR}, #{menuClass,jdbcType=VARCHAR}, 
+      #{menuCode,jdbcType=VARCHAR}, #{menuName,jdbcType=VARCHAR}, #{parentMenucode,jdbcType=VARCHAR}, 
+      #{sequence,jdbcType=VARCHAR}, #{menuType,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{icon,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.mo.fang.springcloudsystem.system.entity.Menu">
+        insert into oa_sys_menu
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="menuUrl != null">
+                MENU_URL,
+            </if>
+            <if test="menuClass != null">
+                MENU_CLASS,
+            </if>
+            <if test="menuCode != null">
+                MENU_CODE,
+            </if>
+            <if test="menuName != null">
+                MENU_NAME,
+            </if>
+            <if test="parentMenucode != null">
+                PARENT_MENUCODE,
+            </if>
+            <if test="sequence != null">
+                SEQUENCE,
+            </if>
+            <if test="menuType != null">
+                MENU_TYPE,
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME,
+            </if>
+            <if test="icon != null">
+                ICON,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="menuUrl != null">
+                #{menuUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="menuClass != null">
+                #{menuClass,jdbcType=VARCHAR},
+            </if>
+            <if test="menuCode != null">
+                #{menuCode,jdbcType=VARCHAR},
+            </if>
+            <if test="menuName != null">
+                #{menuName,jdbcType=VARCHAR},
+            </if>
+            <if test="parentMenucode != null">
+                #{parentMenucode,jdbcType=VARCHAR},
+            </if>
+            <if test="sequence != null">
+                #{sequence,jdbcType=VARCHAR},
+            </if>
+            <if test="menuType != null">
+                #{menuType,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="icon != null">
+                #{icon,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.mo.fang.springcloudsystem.system.entity.Menu">
+        update oa_sys_menu
+        <set>
+            <if test="menuUrl != null">
+                MENU_URL = #{menuUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="menuClass != null">
+                MENU_CLASS = #{menuClass,jdbcType=VARCHAR},
+            </if>
+            <if test="menuCode != null">
+                MENU_CODE = #{menuCode,jdbcType=VARCHAR},
+            </if>
+            <if test="menuName != null">
+                MENU_NAME = #{menuName,jdbcType=VARCHAR},
+            </if>
+            <if test="parentMenucode != null">
+                PARENT_MENUCODE = #{parentMenucode,jdbcType=VARCHAR},
+            </if>
+            <if test="sequence != null">
+                SEQUENCE = #{sequence,jdbcType=VARCHAR},
+            </if>
+            <if test="menuType != null">
+                MENU_TYPE = #{menuType,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="icon != null">
+                ICON = #{icon,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.mo.fang.springcloudsystem.system.entity.Menu">
+    update oa_sys_menu
+    set MENU_URL = #{menuUrl,jdbcType=VARCHAR},
+      MENU_CLASS = #{menuClass,jdbcType=VARCHAR},
+      MENU_CODE = #{menuCode,jdbcType=VARCHAR},
+      MENU_NAME = #{menuName,jdbcType=VARCHAR},
+      PARENT_MENUCODE = #{parentMenucode,jdbcType=VARCHAR},
+      SEQUENCE = #{sequence,jdbcType=VARCHAR},
+      MENU_TYPE = #{menuType,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      ICON = #{icon,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

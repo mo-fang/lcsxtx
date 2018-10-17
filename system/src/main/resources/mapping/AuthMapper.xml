@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mo.fang.springcloudsystem.system.mapper.AuthMapper" >
+  <resultMap id="BaseResultMap" type="com.mo.fang.springcloudsystem.system.entity.Auth" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="ownerid" property="ownerid" jdbcType="INTEGER" />
+    <result column="ownername" property="ownername" jdbcType="VARCHAR" />
+    <result column="mbid" property="mbid" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="updateuser" property="updateuser" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, ownerid, ownername, mbid, type, updatetime, updateuser
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from oa_sys_auth
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from oa_sys_auth
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <delete id="deleteByTypeAndOwnerId">
+        delete from oa_sys_auth
+         where type = #{type,jdbcType=VARCHAR}  and  ownerid =  #{ownerid,jdbcType=INTEGER}
+    </delete>
+  <insert id="insert" parameterType="com.mo.fang.springcloudsystem.system.entity.Auth" >
+    insert into oa_sys_auth (id, ownerid, ownername, 
+      mbid, type, updatetime, 
+      updateuser)
+    values (#{id,jdbcType=INTEGER}, #{ownerid,jdbcType=INTEGER}, #{ownername,jdbcType=VARCHAR}, 
+      #{mbid,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, #{updatetime,jdbcType=TIMESTAMP}, 
+      #{updateuser,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertBatch" parameterType="java.util.List">
+        insert into oa_sys_auth (ownerid, ownername,
+        mbid, type, updatetime,updateuser)
+        values
+        <foreach collection="auths" item="auth" separator="," >
+            (#{auth.ownerid}, #{auth.ownername},
+            #{auth.mbid}, #{auth.type}, sysdate(),
+            #{auth.updateuser}
+            )
+        </foreach>
+    </insert>
+    <select id="getMenuAndButtonIdByAuthTypeAndOwnerId" resultType="java.lang.Integer">
+        select mbid from  oa_sys_auth where type = #{type}  and  ownerid =  #{ownerid}
+    </select>
+  <insert id="insertSelective" parameterType="com.mo.fang.springcloudsystem.system.entity.Auth" >
+    insert into oa_sys_auth
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="ownerid != null" >
+        ownerid,
+      </if>
+      <if test="ownername != null" >
+        ownername,
+      </if>
+      <if test="mbid != null" >
+        mbid,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
+      <if test="updateuser != null" >
+        updateuser,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="ownerid != null" >
+        #{ownerid,jdbcType=INTEGER},
+      </if>
+      <if test="ownername != null" >
+        #{ownername,jdbcType=VARCHAR},
+      </if>
+      <if test="mbid != null" >
+        #{mbid,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateuser != null" >
+        #{updateuser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mo.fang.springcloudsystem.system.entity.Auth" >
+    update oa_sys_auth
+    <set >
+      <if test="ownerid != null" >
+        ownerid = #{ownerid,jdbcType=INTEGER},
+      </if>
+      <if test="ownername != null" >
+        ownername = #{ownername,jdbcType=VARCHAR},
+      </if>
+      <if test="mbid != null" >
+        mbid = #{mbid,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateuser != null" >
+        updateuser = #{updateuser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mo.fang.springcloudsystem.system.entity.Auth" >
+    update oa_sys_auth
+    set ownerid = #{ownerid,jdbcType=INTEGER},
+      ownername = #{ownername,jdbcType=VARCHAR},
+      mbid = #{mbid,jdbcType=INTEGER},
+      type = #{type,jdbcType=VARCHAR},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      updateuser = #{updateuser,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

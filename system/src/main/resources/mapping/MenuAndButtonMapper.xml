@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mo.fang.springcloudsystem.system.mapper.MenuAndButtonMapper">
+    <resultMap id="BaseResultMap" type="com.mo.fang.springcloudsystem.system.entity.MenuAndButton">
+        <id column="ID" property="id" jdbcType="INTEGER"/>
+        <result column="MENU_ID" property="menuId" jdbcType="INTEGER"/>
+        <result column="BUTTON_ID" property="buttonId" jdbcType="INTEGER"/>
+        <result column="MENU_CODE" property="menuCode" jdbcType="VARCHAR"/>
+        <result column="BTNSHORTNAME" property="btnshortname" jdbcType="VARCHAR"/>
+        <result column="MENU_NAME" property="menuName" jdbcType="VARCHAR"/>
+        <result column="BTN_NAME" property="btnName" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    ID, MENU_ID, BUTTON_ID, MENU_CODE, BTNSHORTNAME,MENU_NAME,BTN_NAME
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from oa_sys_mandb
+        where ID = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="getAllMenuAndButton" resultMap="BaseResultMap"
+            parameterType="com.mo.fang.springcloudsystem.system.entity.MenuAndButton">
+        select
+        <include refid="Base_Column_List"/>
+        from oa_sys_mandb
+        <where>
+            <if test="menuId!=null and menuId !=''">
+                and MENU_ID = #{menuId,jdbcType = INTEGER}
+            </if>
+        </where>
+    </select>
+    <select id="getMbAuthPerms" resultType="java.lang.String">
+select CONCAT(MENU_CODE,':',BTNSHORTNAME)  from  oa_sys_mandb  t where exists (select 1 from  oa_sys_auth a  where a.mbid = t.id and (a.type='2' and  a.ownerid = #{userId}))
+union
+select CONCAT(MENU_CODE,':',BTNSHORTNAME)  from  oa_sys_mandb  t where exists (select 1 from  oa_sys_auth a  where a.mbid = t.id and (a.type = '1' and exists (select 1 from  oa_sys_uandr b where b.roleid = a.ownerid and
+b.userid = #{userId})))
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from oa_sys_mandb
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+    <delete id="delByMenuIdAndButtonId">
+        delete from oa_sys_mandb
+        where MENU_ID = #{menuId,jdbcType=INTEGER}
+        <if test="btnIdList!=null and btnIdList.size!=0">
+            and BUTTON_ID in
+            <foreach collection="btnIdList" item="btid" open="(" close=")" separator=",">
+                ${btid}
+            </foreach>
+        </if>
+    </delete>
+    <delete id="deleteByMenuId" parameterType="java.lang.Integer">
+    delete from oa_sys_mandb
+    where MENU_ID = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.mo.fang.springcloudsystem.system.entity.MenuAndButton">
+    insert into oa_sys_mandb (ID, MENU_ID, BUTTON_ID, 
+      MENU_CODE, BTNSHORTNAME)
+    values (#{id,jdbcType=INTEGER}, #{menuId,jdbcType=INTEGER}, #{buttonId,jdbcType=INTEGER}, 
+      #{menuCode,jdbcType=VARCHAR}, #{btnshortname,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertBatch" parameterType="java.util.List">
+        insert into oa_sys_mandb (MENU_ID, BUTTON_ID,
+        MENU_CODE, BTNSHORTNAME,MENU_NAME,BTN_NAME)
+        values
+        <foreach collection="mandbs" item="mb" separator=",">
+            (#{mb.menuId,jdbcType=INTEGER}, #{mb.buttonId,jdbcType=INTEGER},
+            #{mb.menuCode,jdbcType=VARCHAR}, #{mb.btnshortname,jdbcType=VARCHAR},
+            #{mb.menuName,jdbcType=VARCHAR}, #{mb.btnName,jdbcType=VARCHAR}
+            )
+        </foreach>
+    </insert>
+    <insert id="insertSelective" parameterType="com.mo.fang.springcloudsystem.system.entity.MenuAndButton">
+        insert into oa_sys_mandb
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="menuId != null">
+                MENU_ID,
+            </if>
+            <if test="buttonId != null">
+                BUTTON_ID,
+            </if>
+            <if test="menuCode != null">
+                MENU_CODE,
+            </if>
+            <if test="btnshortname != null">
+                BTNSHORTNAME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="menuId != null">
+                #{menuId,jdbcType=INTEGER},
+            </if>
+            <if test="buttonId != null">
+                #{buttonId,jdbcType=INTEGER},
+            </if>
+            <if test="menuCode != null">
+                #{menuCode,jdbcType=VARCHAR},
+            </if>
+            <if test="btnshortname != null">
+                #{btnshortname,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.mo.fang.springcloudsystem.system.entity.MenuAndButton">
+        update oa_sys_mandb
+        <set>
+            <if test="menuId != null">
+                MENU_ID = #{menuId,jdbcType=INTEGER},
+            </if>
+            <if test="buttonId != null">
+                BUTTON_ID = #{buttonId,jdbcType=INTEGER},
+            </if>
+            <if test="menuCode != null">
+                MENU_CODE = #{menuCode,jdbcType=VARCHAR},
+            </if>
+            <if test="btnshortname != null">
+                BTNSHORTNAME = #{btnshortname,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.mo.fang.springcloudsystem.system.entity.MenuAndButton">
+    update oa_sys_mandb
+    set MENU_ID = #{menuId,jdbcType=INTEGER},
+      BUTTON_ID = #{buttonId,jdbcType=INTEGER},
+      MENU_CODE = #{menuCode,jdbcType=VARCHAR},
+      BTNSHORTNAME = #{btnshortname,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

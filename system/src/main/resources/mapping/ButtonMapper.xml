@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mo.fang.springcloudsystem.system.mapper.ButtonMapper" >
+  <resultMap id="BaseResultMap" type="com.mo.fang.springcloudsystem.system.entity.Button" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="BUTTON_NAME" property="buttonName" jdbcType="VARCHAR" />
+    <result column="MARK" property="mark" jdbcType="VARCHAR" />
+    <result column="SHORTNAME" property="shortname" jdbcType="VARCHAR" />
+    <result column="ICON" property="icon" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, BUTTON_NAME, MARK, SHORTNAME, ICON
+  </sql>
+    <select id="getAllButtons" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from oa_sys_button
+    </select>
+    
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from oa_sys_button
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from oa_sys_button
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.mo.fang.springcloudsystem.system.entity.Button" >
+    insert into oa_sys_button (ID, BUTTON_NAME, MARK, 
+      SHORTNAME, ICON)
+    values (#{id,jdbcType=INTEGER}, #{buttonName,jdbcType=VARCHAR}, #{mark,jdbcType=VARCHAR}, 
+      #{shortname,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mo.fang.springcloudsystem.system.entity.Button" >
+    insert into oa_sys_button
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="buttonName != null" >
+        BUTTON_NAME,
+      </if>
+      <if test="mark != null" >
+        MARK,
+      </if>
+      <if test="shortname != null" >
+        SHORTNAME,
+      </if>
+      <if test="icon != null" >
+        ICON,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="buttonName != null" >
+        #{buttonName,jdbcType=VARCHAR},
+      </if>
+      <if test="mark != null" >
+        #{mark,jdbcType=VARCHAR},
+      </if>
+      <if test="shortname != null" >
+        #{shortname,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        #{icon,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mo.fang.springcloudsystem.system.entity.Button" >
+    update oa_sys_button
+    <set >
+      <if test="buttonName != null" >
+        BUTTON_NAME = #{buttonName,jdbcType=VARCHAR},
+      </if>
+      <if test="mark != null" >
+        MARK = #{mark,jdbcType=VARCHAR},
+      </if>
+      <if test="shortname != null" >
+        SHORTNAME = #{shortname,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        ICON = #{icon,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mo.fang.springcloudsystem.system.entity.Button" >
+    update oa_sys_button
+    set BUTTON_NAME = #{buttonName,jdbcType=VARCHAR},
+      MARK = #{mark,jdbcType=VARCHAR},
+      SHORTNAME = #{shortname,jdbcType=VARCHAR},
+      ICON = #{icon,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

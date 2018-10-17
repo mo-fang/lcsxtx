@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mo.fang.springcloudsystem.system.mapper.SysUserMapper" >
+    <resultMap id="BaseResultMap" type="com.mo.fang.springcloudsystem.system.entity.SysUser" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="username" property="username" jdbcType="VARCHAR" />
+        <result column="password" property="password" jdbcType="VARCHAR" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="departmentid" property="departmentid" jdbcType="INTEGER" />
+        <result column="postid" property="postid" jdbcType="INTEGER" />
+        <result column="sfzh" property="sfzh" jdbcType="VARCHAR" />
+        <result column="hiredate" property="hiredate" jdbcType="VARCHAR" />
+        <result column="birthday" property="birthday" jdbcType="VARCHAR" />
+        <result column="qualificationid" property="qualificationid" jdbcType="INTEGER" />
+        <result column="havewife" property="havewife" jdbcType="VARCHAR" />
+        <result column="phonum" property="phonum" jdbcType="VARCHAR" />
+        <result column="sexcode" property="sexcode" jdbcType="VARCHAR" />
+        <result column="addr" property="addr" jdbcType="VARCHAR" />
+        <result column="sosname" property="sosname" jdbcType="VARCHAR" />
+        <result column="sosphonnum" property="sosphonnum" jdbcType="VARCHAR" />
+        <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
+        <result column="updateuser" property="updateuser" jdbcType="VARCHAR" />
+        <result column="enable" property="enable" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+    id, username, password, name, departmentid, postid, sfzh, hiredate, birthday, qualificationid,
+    havewife, phonum, sexcode, addr, sosname, sosphonnum, updatetime, updateuser, enable
+  </sql>
+
+  <select id="getUser" resultMap="BaseResultMap" parameterType="com.mo.fang.springcloudsystem.system.entity.SysUser" >
+    select 
+    <include refid="Base_Column_List" />
+    from oa_sys_user
+      <where>
+          <if test="username != null and username!=''" >
+              and username = #{username,jdbcType=VARCHAR}
+          </if>
+          <if test="password != null and password!=''" >
+              and password = #{password,jdbcType=VARCHAR}
+          </if>
+      </where>
+  </select>
+    <select id="getAllUsers" resultMap="BaseResultMap" parameterType="com.mo.fang.springcloudsystem.system.entity.SysUser">
+        select
+        <include refid="Base_Column_List"/>
+        FROM oa_sys_user
+        <where>
+            <if test="username!=null and username!=''">
+               and username = #{username,jdbcType=VARCHAR}
+            </if>
+            <if test="name!=null and name!=''">
+               and name like  concat('%',#{name,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="departmentid!=null and departmentid!=''">
+              and  departmentid = #{departmentid,jdbcType=INTEGER}
+            </if>
+        </where>
+        order by updatetime
+    </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from oa_sys_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from oa_sys_user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.mo.fang.springcloudsystem.system.entity.SysUser" >
+    insert into oa_sys_user (id, username, password, 
+      name, sexcode, updatetime, 
+      updateuser, enable)
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{sexcode,jdbcType=VARCHAR}, #{updatetime,jdbcType=TIMESTAMP}, 
+      #{updateuser,jdbcType=VARCHAR}, #{enable,jdbcType=VARCHAR})
+  </insert>
+    <insert id="saveOrUpdateUser" parameterType="com.mo.fang.springcloudsystem.system.entity.SysUser">
+        insert into oa_sys_user(
+        <if test="id!=null and id!='' ">
+            id,
+        </if>
+        username, password, name, departmentid, postid, sfzh, hiredate, birthday, qualificationid,
+        havewife, phonum, sexcode, addr, sosname, sosphonnum, updatetime, updateuser, enable
+        )values (
+        <if test="id!=null and id!='' ">
+            #{id,jdbcType=INTEGER},
+        </if>
+        #{username,jdbcType=VARCHAR},
+        #{password,jdbcType=VARCHAR},
+        #{name,jdbcType=VARCHAR},
+        #{departmentid,jdbcType=INTEGER},
+        #{postid,jdbcType=INTEGER},
+        #{sfzh,jdbcType=VARCHAR},
+        #{hiredate,jdbcType=VARCHAR},
+        #{birthday,jdbcType=VARCHAR},
+        #{qualificationid,jdbcType=INTEGER},
+        #{havewife,jdbcType=VARCHAR},
+        #{phonum,jdbcType=VARCHAR},
+        #{sexcode,jdbcType=VARCHAR},
+        #{addr,jdbcType=VARCHAR},
+        #{sosname,jdbcType=VARCHAR},
+        #{sosphonnum,jdbcType=VARCHAR},
+        sysdate(),
+        #{updateuser,jdbcType=VARCHAR},
+        #{enable,jdbcType=VARCHAR}
+        )
+        ON DUPLICATE KEY UPDATE
+        username =  #{username,jdbcType=VARCHAR},
+        password =  #{password,jdbcType=VARCHAR},
+        name = #{name,jdbcType=VARCHAR},
+        departmentid =  #{departmentid,jdbcType=INTEGER},
+        postid =  #{postid,jdbcType=INTEGER},
+        sfzh = #{sfzh,jdbcType=VARCHAR},
+        hiredate = #{hiredate,jdbcType=VARCHAR},
+        birthday = #{birthday,jdbcType=VARCHAR},
+        qualificationid = #{qualificationid,jdbcType=INTEGER},
+        havewife = #{havewife,jdbcType=VARCHAR},
+        phonum = #{phonum,jdbcType=VARCHAR},
+        sexcode = #{sexcode,jdbcType=VARCHAR},
+        addr = #{addr,jdbcType=VARCHAR},
+        sosname = #{sosname,jdbcType=VARCHAR},
+        sosphonnum = #{sosphonnum,jdbcType=VARCHAR},
+        updatetime = sysdate(),
+        updateuser = #{updateuser,jdbcType=VARCHAR},
+        enable = #{enable,jdbcType=VARCHAR}
+    </insert>
+  <insert id="insertSelective" parameterType="com.mo.fang.springcloudsystem.system.entity.SysUser" >
+    insert into oa_sys_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="sexcode != null" >
+        sexcode,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
+      <if test="updateuser != null" >
+        updateuser,
+      </if>
+      <if test="enable != null" >
+        enable,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sexcode != null" >
+        #{sexcode,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateuser != null" >
+        #{updateuser,jdbcType=VARCHAR},
+      </if>
+      <if test="enable != null" >
+        #{enable,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mo.fang.springcloudsystem.system.entity.SysUser" >
+    update oa_sys_user
+    <set >
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sexcode != null" >
+        sexcode = #{sexcode,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateuser != null" >
+        updateuser = #{updateuser,jdbcType=VARCHAR},
+      </if>
+      <if test="enable != null" >
+        enable = #{enable,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mo.fang.springcloudsystem.system.entity.SysUser" >
+    update oa_sys_user
+    set username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      sexcode = #{sexcode,jdbcType=VARCHAR},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      updateuser = #{updateuser,jdbcType=VARCHAR},
+      enable = #{enable,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

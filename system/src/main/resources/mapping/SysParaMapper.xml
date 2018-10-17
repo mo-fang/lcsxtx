@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mo.fang.springcloudsystem.system.mapper.SysParaMapper" >
+  <resultMap id="BaseResultMap" type="com.mo.fang.springcloudsystem.system.entity.SysPara" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="value" property="value" jdbcType="VARCHAR" />
+    <result column="enable" property="enable" jdbcType="VARCHAR" />
+    <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="insertuser" property="insertuser" jdbcType="VARCHAR" />
+    <result column="mark" property="mark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, value, enable, updatetime, insertuser,mark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_para
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+    <select id="getAllParas" resultMap="BaseResultMap" parameterType="com.mo.fang.springcloudsystem.system.entity.SysPara">
+        select <include refid="Base_Column_List"/> from  sys_para
+        <where>
+            <if test="name!=null and name!=''">
+            and name like CONCAT('%',#{name,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="mark!=null and mark!=''">
+            and mark like CONCAT('%',#{mark,jdbcType=VARCHAR},'%')
+            </if>
+
+        </where>
+        order by updatetime
+    </select>
+
+    <insert id="saveOrUpdate" parameterType="com.mo.fang.springcloudsystem.system.entity.SysPara" >
+        insert into sys_para (
+        <if test="id != null and id!='' " >
+            id,
+        </if>
+        name, value,
+        enable, updatetime,insertuser,mark)
+        values (
+        <if test="id != null and id!='' " >
+            #{id,jdbcType=INTEGER},
+        </if>
+        #{name,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR},
+        #{enable,jdbcType=VARCHAR},sysdate(),#{insertuser,jdbcType=VARCHAR},
+        #{mark,jdbcType=VARCHAR}
+        )
+        ON DUPLICATE KEY UPDATE
+        name = #{name,jdbcType=VARCHAR},
+        value =  #{value,jdbcType=VARCHAR},
+        enable =  #{enable,jdbcType=VARCHAR},
+        mark =  #{mark,jdbcType=VARCHAR},
+        updatetime = sysdate()
+    </insert>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_para
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.mo.fang.springcloudsystem.system.entity.SysPara" >
+    insert into sys_para (id, name, value, 
+      enable, updatetime, insertuser
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR}, 
+      #{enable,jdbcType=VARCHAR}, #{updatetime,jdbcType=TIMESTAMP}, #{insertuser,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mo.fang.springcloudsystem.system.entity.SysPara" >
+    insert into sys_para
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="value != null" >
+        value,
+      </if>
+      <if test="enable != null" >
+        enable,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
+      <if test="insertuser != null" >
+        insertuser,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null" >
+        #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="enable != null" >
+        #{enable,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertuser != null" >
+        #{insertuser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mo.fang.springcloudsystem.system.entity.SysPara" >
+    update sys_para
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null" >
+        value = #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="enable != null" >
+        enable = #{enable,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertuser != null" >
+        insertuser = #{insertuser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mo.fang.springcloudsystem.system.entity.SysPara" >
+    update sys_para
+    set name = #{name,jdbcType=VARCHAR},
+      value = #{value,jdbcType=VARCHAR},
+      enable = #{enable,jdbcType=VARCHAR},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      insertuser = #{insertuser,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
