@@ -1,0 +1,244 @@
+*{margin: 0;padding: 0}
+body, html {
+    height: 100%;
+    font-family:  "Microsoft YaHei", "Times New Roman", Times, serif;
+    font-size: 14px;
+}
+ul{list-style-type: none}
+::-webkit-input-placeholder{  font-family:  "Microsoft YaHei", "Times New Roman", Times, serif;color: #989898}
+:-moz-placeholder{  font-family:  "Microsoft YaHei", "Times New Roman", Times, serif;color: #989898}
+::-moz-placeholder{  font-family:  "Microsoft YaHei", "Times New Roman", Times, serif;color: #989898}
+:-ms-input-placeholder{  font-family:  "Microsoft YaHei", "Times New Roman", Times, serif;color: #989898}
+.login-div{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: -webkit-linear-gradient(45deg, #41BBDA, #6B8DEE); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(45deg,  #41BBDA,  #6B8DEE); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(45deg,  #41BBDA,  #6B8DEE); /* Firefox 3.6 - 15 */
+    background: linear-gradient(45deg,  #41BBDA,  #6B8DEE); /* 鏍囧噯鐨勮娉曪紙蹇呴』鏀惧湪鏈�悗锛�*/
+
+}
+.login-bg1{
+    display: block;
+    position: absolute;
+    width: 193px;
+    height: 447px;
+    background: url("../../public/img/login_bg1.png");
+    left: 0;
+    bottom: 0;
+
+}
+.login-bg2{
+    display: block;
+    position: absolute;
+    width: 568px;
+    height: 656px;
+    background: url("../../public/img/login_bg2.png");
+    right: 0;
+    bottom: 0;
+}
+.login-cont{
+    width: 660px;
+    height: 360px;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -220px 0 0 -330px;
+    z-index: 1000;
+}
+.cont-logo{
+    width: 329px;
+    height: 360px;
+    float: left;
+    text-align: center;
+    border-right: 2px solid #f1fafe;
+
+}
+.cont-logo img {
+    margin-top: 11px;
+    display: inline-block;
+}
+
+.cont-logo img:last-child{
+    width: 322px;
+}
+
+.cont-div{
+    width: 261px;
+    height: 206px;
+    float: left;
+    margin: 47px 34px;
+
+}
+.cont-div h2{
+    color: #6296EA;
+    font-weight: 300;
+    font-size: 18px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+}
+.cont-div p{
+    height: 40px;
+    width: 100%;
+    border-bottom: 1px solid #CCCCCC;
+
+}
+.cont-div p i{
+    display: block;
+    float: left;
+}
+.cont-div p:nth-child(2) i{
+    width: 20px;
+    height: 40px;
+    background: url("../../public/img/login_user.png") no-repeat center;
+}
+.cont-div p:nth-child(3) i{
+    width: 20px;
+    height: 40px;
+    background: url("../../public/img/login_password.png") no-repeat center;
+}
+.cont-div input[type="text"],.cont-div input[type="password"]{
+    float: left;
+    outline: none;
+    height: 40px;
+    margin-left: 10px;
+    padding-left: 3px;
+    border: none;
+
+}
+.cont-div input[type="button"]{
+    background-color: #6296ea;
+    border-radius: 4px;
+    width: 100%;
+    height: 40px;
+    outline: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+/*閫夋嫨鑰冭瘯*/
+.main-cont {
+    background: #eee url(../../public/img/bg-icon.png) no-repeat center;
+    width: 100%;
+    height: 100%;
+}
+
+.select-div {
+    width: 630px;
+    height: 420px;
+    overflow: hidden;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -315px;
+    margin-top: -226px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 14px;
+    box-shadow: 0 3px 7px 0 rgba(25, 169, 123, 0.35);
+}
+.title-div{
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    color: #299FFF;
+    font-size: 18px;
+    margin-bottom: -10px;
+}
+.list_div {
+    width: 94%;
+    margin: 0 auto;
+    padding: 0 5px;
+}
+
+#faq {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 384px;
+    width: 98%;
+    margin-left: 1%;
+}
+
+.list_div li {
+    width: 100%;
+    height: 42px;
+    background-color: #f2f9ff;
+    border-radius: 6px;
+    border: solid 1px #cce8ff;
+    line-height: 42px;
+    overflow: hidden;
+    margin-top: 10px;
+
+}
+
+.list_div li:hover {
+    background-color: #e0f1ff;
+}
+
+.list_div li img {
+    float: left;
+    height: 20px;
+    margin: 11px 0 0 10px;
+
+}
+
+.list_div li span {
+    color: #444444;
+    font-size: 14px;
+    margin-left: 10px;
+}
+.list_div li a{
+    text-decoration: none;
+    display: block;
+}
+
+
+
+/*鐢ㄦ埛瀵嗙爜鎻愮ず閿欒淇℃伅*/
+.ts {
+    top: 32px;
+    left: 45px;
+    color: #FD8A23;
+    padding: 2px 7px;
+    border-radius: 3px;
+    /*  display: none; */
+}
+
+.ts img {
+    height: 14px;
+    display: inline-block;
+    vertical-align: sub;
+    margin-right: 5px
+}
+
+.ts span {
+    letter-spacing: 1px;
+    font-size: 12px
+}
+.cont-div p:nth-child(4) i {
+    width: 20px;
+    height: 40px;
+    background: url("../../public/img/login_phone.png") no-repeat center;
+}
+.cont-div input.dx{
+    width: 120px;
+    float: left;
+
+}
+.cont-div input[type="button"].dx-button{
+    width: 104px;
+    float: left;
+    background: #fff;
+    color: #6296ea;
+    border: 1px solid #6296ea;
+    height: 34px;
+    margin-top: 3px;
+    cursor: pointer;
+}

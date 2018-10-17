@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>用户登陆</title>
+    <link href="../../../pc/css/login.css" rel="stylesheet" type="text/css" />
+    <script>
+        // 嵌套问题解决 2018年10月4日20:46:17
+        if(window.parent != window){
+            window.parent.location.reload(true);
+        }
+    </script>
+</head>
+<body id="home">
+<div class="login-div">
+<div class="login-cont">
+    <div class="cont-logo">
+        <img src="../../../public/img/login_logo.png">
+        <img src="../../../public/img/login_banner.png">
+    </div>
+
+    <div class="cont-div">
+        <form  id="subform" action="doManagerLogin.html"  method="post">
+
+            <h2>用户登录</h2>
+            <p><i></i><input type="text" name="username" placeholder="输入登录账号"></p>
+            <p><i></i><input type="password"  name="password" placeholder="输入登陆密码"></p>
+            <p><i></i><input type="text" name="yzm" placeholder="输入验证码" class="dx"><input class="dx-button"  id="identifyingcode" type="button"  value="短信验证码" onclick="identifyingcode()"/><!-- <button type="button" id="yzmdzs" onclick="shouJiYanZheng(this)" class="dx-button" >发送短信验证码</button> --></p>
+        </form>
+        <input type="button" onclick="dologin()" value="登录">
+    </div>
+</div>
+<i class="login-bg1"></i>
+<i class="login-bg2"></i>
+</div>
+</body>
+<script src="../../../public/bus.js"></script>
+<script th:inline="javascript">
+    var layer ;
+    layui.use('table',function () {
+        layer =  layui.layer;
+    })
+    function identifyingcode() {
+    }
+    function dologin() {
+        $.ajax({
+            url: "doLogin.html",
+            type:"post",
+            dataType:"json",
+            data:$("#subform").serialize(),
+            success: function (data) {
+                if(data.retCode==200){
+                    layer.msg(data.message, {icon: 1, time: 1e3});
+                     setTimeout(location.href="/toIndex.html",3000);
+                }else
+                    layer.msg(data.message);
+            },
+            error:function (data) {
+                console.info(data)
+            }
+        })
+    }
+</script>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑</title>
+</head>
+<body>
+<div class="layui-fluid" style="margin-top: 10px">
+    <div class="layui-card">
+        <form class="layui-form" action="" lay-filter="layui-form-filter">
+            <div class="layui-form-item">
+                <label class="layui-form-label">菜单类型</label>
+                <div class="layui-input-block"  >
+                    <input type="radio"  lay-filter="menuType" name="menuType" value="0" title="父类">
+                    <input type="radio"  lay-filter="menuType" name="menuType" value="1" title="子类" checked>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">菜单名称</label>
+                <input name="id" type="hidden">
+                <div class="layui-input-block">
+                    <input type="text" name="menuName" required lay-verify="required" placeholder="请输入菜单名称"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">菜单URL</label>
+                <div class="layui-input-block">
+                    <input type="text" name="menuUrl" required lay-verify="required" placeholder="请输入菜单URL"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">编码-简称</label>
+                <div class="layui-input-block">
+                    <input type="text" name="menuCode" required lay-verify="required" placeholder="请输入编码【简称】"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-label-parentMenucode">
+                <label class="layui-form-label">父菜单类型</label>
+                <div class="layui-input-block">
+                    <select name="parentMenucode" class="layui-select-parentMenucode" lay-verify="required" >
+                        <option value="">请选择</option>
+                        <option th:each="menu:${pMenus}"  th:value="${menu.menuCode}"><span th:text="${menu.menuName}"></span></option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-label-parentMenucode">
+                <label class="layui-form-label">菜单按钮</label>
+                <div class="layui-input-block" >
+                    <input th:id="${'bt'+bt.id}"  type="checkbox" th:value="${bt.id}" class="layui-form-label-buttons"  th:each="bt:${buttons}" name = "buttons" th:title="${bt.buttonName}">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="formsub">立即提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+<script src="../../../public/bus.js"></script>
+<script src="../../../pc/js/menu/menu.js"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var menu = [[${menu}]];
+    var buttoned = [[${buttonses}]];
+    /*]]>*/
+
+    for(var index in buttoned){
+        $("#bt"+buttoned[index]).attr("checked","checked");
+    }
+    if (menu.menuType==0){
+        $(".layui-form-label-parentMenucode").hide();
+        $(".layui-select-parentMenucode").removeAttr('lay-verify');
+        $(".layui-select-parentMenucode").removeAttr('name');
+        $(".layui-form-label-buttons").hide();
+        $(".layui-form-label-buttons").removeAttr('name');
+    }else {
+    // 不要写回显了  子根本就没隐藏！！！！！！呜呼哈哈哈哈~~~~~~~ 半小时就这么浪费了  二百五~
+    }
+
+    // layui 2.3.0之后有的form.val()    贫道用来回显数据了  ^_^
+layui.use('form',function () {
+    var form = layui.form;
+    form.val("layui-form-filter", {
+        "menuName": menu.menuName
+        ,"id": menu.id
+        ,"menuType": menu.menuType
+        ,"menuCode": menu.menuCode
+        ,"menuUrl": menu.menuUrl
+        ,"parentMenucode": menu.parentMenucode
+    })
+})
+</script>
+</html>

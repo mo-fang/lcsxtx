@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户</title>
+</head>
+<body>
+<div class="tool-bar" id="toolbar" style="height: auto;margin-top: 10px;margin-left: 10px">
+    <shiro:hasPermission name="productmsg:add"><button class="layui-btn btn-add" >增加</button></shiro:hasPermission>
+</div>
+<table id="table_obj" lay-filter="obj">
+</table>
+<p type="text/html" id="bar" style="display: none">
+    <shiro:hasPermission name="productmsg:del"><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" title="删除">删</a></shiro:hasPermission>
+    <shiro:hasPermission name="productmsg:edit"><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="edit" title="修改">改</a></shiro:hasPermission>
+    <shiro:hasPermission name="productmsg:detail"><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="detail" title="详情">详</a></shiro:hasPermission>
+    <shiro:hasPermission name="productmsg:add"><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="pic" title="上传图片">图</a></shiro:hasPermission>
+</p>
+</body>
+<script src="../../../public/bus.js"></script>
+<script src="../../../pc/js/product/product.js"></script>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>授权</title>
+</head>
+<body>
+<div class="layui-fluid" style="margin-top: 10px">
+    <div class="layui-card">
+        <form class="layui-form" action="">
+            <input type="hidden" id="id" th:value="${id}">
+            <div id="xtree" class="xtree_contianer"></div>
+        </form>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit id = "authsub" >立即提交</button>
+                </div>
+            </div>
+
+    </div>
+</div>
+</div>
+</body>
+<script src="../../../public/bus.js"></script>
+<script src="../../../pc/js/role/layui-xtree.js"></script>
+<script src="../../../pc/js/role/role.js"></script>
+</html>

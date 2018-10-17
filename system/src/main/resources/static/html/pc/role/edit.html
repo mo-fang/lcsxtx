@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>修改</title>
+    </head>
+    <body>
+        <div class="layui-fluid" style="margin-top: 10px">
+            <div class="layui-card">
+                <form class="layui-form" action=""  lay-filter="layui-form-filter">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">角色编码</label>
+                        <input type="hidden" name="id">
+                        <div class="layui-input-block">
+                            <input type="text" name="code" lay-filter="code" required lay-verify="required" placeholder="请输入角色编码"
+                                   autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">角色名称</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="name" required lay-verify="required" placeholder="请输入角色名称"
+                                   autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button class="layui-btn" lay-submit lay-filter="formsub">立即提交</button>
+                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+    <script src="../../../public/bus.js"></script>
+    <script src="../../../pc/js/role/role.js"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+var role = [[${role}]];
+/*]]*/
+layui.use('form',function () {
+    var from = layui.form;
+    from.val("layui-form-filter",{
+        name:role.name,
+        id:role.id,
+        code:role.code
+    })
+    
+})
+</script>
+</html>

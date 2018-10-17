@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>新增</title>
+</head>
+<body>
+<div class="layui-fluid" style="margin-top: 10px">
+    <div class="layui-card">
+        <form class="layui-form" action="">
+            <div class="layui-form-item">
+                <label class="layui-form-label">商品类型</label>
+                <div class="layui-input-block">
+                    <select name="categoryid" required lay-verify="required">
+                        <option value="">请选择</option>
+                        <optgroup  th:each="category:${categorys}" th:if="${category.parentid eq null}"  th:label="${category.name}">
+                            <option th:each="soncategory:${categorys}" th:if="${soncategory.parentid eq category.id}"  th:value="${soncategory.id}"><span th:text="${soncategory.name}"></span></option>
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">商品名称</label>
+                <div class="layui-input-block">
+                    <input type="text" name="name" required lay-verify="required" placeholder="请输入商品名称"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">商品副标题</label>
+                <div class="layui-input-block">
+                    <input type="text" name="subtitle" required lay-verify="required" placeholder="请输入商品副标题"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">商品价格</label>
+                <div class="layui-input-block">
+                    <input type="text" name="price" required lay-verify="required" placeholder="请输入商品价格"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">商品库存</label>
+                <div class="layui-input-block">
+                    <input type="text" name="stock" required lay-verify="required" placeholder="请输入商品库存"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">商品详情</label>
+                <div class="layui-input-block">
+                    <textarea name="detail" placeholder="请输入商品详情" class="layui-textarea"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">商品状态</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="status" value="1" title="在售" checked>
+                    <input type="radio" name="status" value="2" title="上新">
+                    <input type="radio" name="status" value="3" title="热销">
+                    <input type="radio" name="status" value="4" title="推荐">
+                    <input type="radio" name="status" value="5" title="促销">
+                    <input type="radio" name="status" value="0" title="删除" disabled>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="formsub">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+<script src="../../../public/bus.js"></script>
+<script src="../../../pc/js/product/product.js"></script>
+</html>
