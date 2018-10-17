@@ -1,0 +1,63 @@
+server:
+  port: 8088
+spring:
+  application:
+        name: microservice-procider-system
+  redis:
+        host: 127.0.0.1
+        port: 6379
+        password: Star1022
+        pool:
+          max-active: 300
+          max-wait: -1
+          max-idle: 8
+        timeout: 10000
+        database: 0
+  datasource:
+      username: root
+      password: star1022
+#      password: d52efb9de2ca1a9a
+      url: jdbc:mysql://localhost:3306/sxtx?characterEncoding=UTF-8&amp;allowMultiQueries=true
+#      url: jdbc:mysql://192.168.1.110:3306/tianyrt_website?characterEncoding=UTF-8&amp;allowMultiQueries=true
+      driver-class-name: com.mysql.jdbc.Driver
+  thymeleaf:
+      cache: false
+      prefix: classpath:/static/html/
+      suffix: .html
+      encoding: UTF-8
+      content-type: text/html
+      mode: LEGACYHTML5
+mybatis:
+    mapper-locations: classpath:mapping/*.xml
+    typeAliasesPackage: com.mo.fang.springcloudauthority.authority.entity
+pagehelper:
+    helper-dialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+
+
+
+website:
+  view:
+    pc-prefix: pc/
+    mobile-prefix: mobile/
+oa:
+  redis:
+    system-data:
+     prefix: OASYSDATA-REDIS-
+
+
+
+#eureka
+eureka:
+  instance:
+    hostname: mofang1
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://admin:admin@mofang1:8761/eureka
+#ribbon
+microservice-procider-file:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
