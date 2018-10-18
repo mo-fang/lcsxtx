@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : root
+ Source Server         : mysql
  Source Server Type    : MySQL
- Source Server Version : 50723
- Source Host           : localhost:3306
+ Source Server Version : 50722
+ Source Host           : 127.0.0.1:3306
  Source Schema         : sxtx
 
  Target Server Type    : MySQL
- Target Server Version : 50723
+ Target Server Version : 50722
  File Encoding         : 65001
 
- Date: 17/10/2018 23:04:06
+ Date: 18/10/2018 17:30:47
 */
 
 SET NAMES utf8mb4;
@@ -82,17 +82,11 @@ INSERT INTO `oa_sys_auth` VALUES (346, 1, NULL, 142, '1', '2018-10-12 13:38:32',
 INSERT INTO `oa_sys_auth` VALUES (347, 1, NULL, 143, '1', '2018-10-12 13:38:32', 'admin');
 INSERT INTO `oa_sys_auth` VALUES (348, 1, NULL, 144, '1', '2018-10-12 13:38:32', 'admin');
 INSERT INTO `oa_sys_auth` VALUES (349, 1, NULL, 145, '1', '2018-10-12 13:38:32', 'admin');
-INSERT INTO `oa_sys_auth` VALUES (350, 1, NULL, 146, '1', '2018-10-12 13:38:32', 'admin');
-INSERT INTO `oa_sys_auth` VALUES (351, 1, NULL, 147, '1', '2018-10-12 13:38:32', 'admin');
-INSERT INTO `oa_sys_auth` VALUES (352, 1, NULL, 148, '1', '2018-10-12 13:38:32', 'admin');
-INSERT INTO `oa_sys_auth` VALUES (353, 1, NULL, 149, '1', '2018-10-12 13:38:32', 'admin');
-INSERT INTO `oa_sys_auth` VALUES (354, 1, NULL, 150, '1', '2018-10-12 13:38:32', 'admin');
 INSERT INTO `oa_sys_auth` VALUES (355, 1, NULL, 104, '1', '2018-10-12 13:38:32', 'admin');
 INSERT INTO `oa_sys_auth` VALUES (356, 1, NULL, 106, '1', '2018-10-12 13:38:32', 'admin');
 INSERT INTO `oa_sys_auth` VALUES (357, 1, NULL, 107, '1', '2018-10-12 13:38:32', 'admin');
 INSERT INTO `oa_sys_auth` VALUES (358, 1, NULL, 108, '1', '2018-10-12 13:38:32', 'admin');
 INSERT INTO `oa_sys_auth` VALUES (359, 1, NULL, 134, '1', '2018-10-12 13:38:32', 'admin');
-INSERT INTO `oa_sys_auth` VALUES (360, 1, NULL, 103, '1', '2018-10-12 13:38:32', 'admin');
 
 -- ----------------------------
 -- Table structure for oa_sys_button
@@ -170,7 +164,6 @@ INSERT INTO `oa_sys_mandb` VALUES (3, 5, 3, 'menumsg', '菜单管理', 'edit', '
 INSERT INTO `oa_sys_mandb` VALUES (4, 6, 5, 'rolemsg', '角色管理', 'auth', '授权');
 INSERT INTO `oa_sys_mandb` VALUES (5, 6, 4, 'rolemsg', '角色管理', 'search', '查询');
 INSERT INTO `oa_sys_mandb` VALUES (102, 5, 2, 'menumsg', '菜单管理', 'del', '删除');
-INSERT INTO `oa_sys_mandb` VALUES (103, 7, 4, 'categorymsg', '商品类别管理', 'search', '查询');
 INSERT INTO `oa_sys_mandb` VALUES (104, 4, 4, 'productmsg', '商品管理', 'search', '查询');
 INSERT INTO `oa_sys_mandb` VALUES (106, 4, 1, 'productmsg', '商品管理', 'add', '增加');
 INSERT INTO `oa_sys_mandb` VALUES (107, 4, 2, 'productmsg', '商品管理', 'del', '删除');
@@ -191,11 +184,6 @@ INSERT INTO `oa_sys_mandb` VALUES (142, 12, 3, 'usermsg', '用户管理', 'edit'
 INSERT INTO `oa_sys_mandb` VALUES (143, 12, 4, 'usermsg', '用户管理', 'search', '查询');
 INSERT INTO `oa_sys_mandb` VALUES (144, 12, 5, 'usermsg', '用户管理', 'auth', '赋权限');
 INSERT INTO `oa_sys_mandb` VALUES (145, 12, 7, 'usermsg', '用户管理', 'detail', '详情');
-INSERT INTO `oa_sys_mandb` VALUES (146, 13, 1, 'paramsg', '参数管理', 'add', '增加');
-INSERT INTO `oa_sys_mandb` VALUES (147, 13, 2, 'paramsg', '参数管理', 'del', '删除');
-INSERT INTO `oa_sys_mandb` VALUES (148, 13, 3, 'paramsg', '参数管理', 'edit', '修改');
-INSERT INTO `oa_sys_mandb` VALUES (149, 13, 4, 'paramsg', '参数管理', 'search', '查询');
-INSERT INTO `oa_sys_mandb` VALUES (150, 14, 4, 'solrmsg', 'solr管理', 'search', '查询');
 INSERT INTO `oa_sys_mandb` VALUES (151, 6, 1, 'rolemsg', '角色管理', 'add', '增加');
 INSERT INTO `oa_sys_mandb` VALUES (152, 6, 2, 'rolemsg', '角色管理', 'del', '删除');
 INSERT INTO `oa_sys_mandb` VALUES (153, 6, 3, 'rolemsg', '角色管理', 'edit', '修改');
@@ -223,16 +211,13 @@ CREATE TABLE `oa_sys_menu`  (
 -- Records of oa_sys_menu
 -- ----------------------------
 INSERT INTO `oa_sys_menu` VALUES (1, '#', '#', 'sysmsg', '系统管理', 'ROOT', NULL, '0', '2018-07-14 11:50:45', '&#xe620;');
-INSERT INTO `oa_sys_menu` VALUES (3, '#', '#', 'mallmsg', '商城管理', 'ROOT', NULL, '0', '2018-09-17 13:50:53', '&#xe620;');
-INSERT INTO `oa_sys_menu` VALUES (4, 'toProductList.html', '#', 'productmsg', '商品管理', 'mallmsg', NULL, '1', '2018-09-29 00:31:17', '&#xe620;');
+INSERT INTO `oa_sys_menu` VALUES (3, '#', '#', 'mallmsg', '设备台帐', 'ROOT', NULL, '0', '2018-10-18 11:38:28', '&#xe620;');
+INSERT INTO `oa_sys_menu` VALUES (4, 'toProductList.html', '#', 'productmsg', '设备管理', 'mallmsg', NULL, '1', '2018-10-18 11:39:01', '&#xe620;');
 INSERT INTO `oa_sys_menu` VALUES (5, 'toMenuList.html', '#', 'menumsg', '菜单管理', 'sysmsg', NULL, '1', '2018-09-26 15:20:06', '&#xe620;');
 INSERT INTO `oa_sys_menu` VALUES (6, 'toRoleList.html', '#', 'rolemsg', '角色管理', 'sysmsg', NULL, '1', '2018-10-12 13:38:21', '&#xe620;');
-INSERT INTO `oa_sys_menu` VALUES (7, 'toCategoryList.html', '#', 'categorymsg', '商品类别管理', 'mallmsg', NULL, '1', '2018-09-26 15:41:05', '&#xe620;');
 INSERT INTO `oa_sys_menu` VALUES (9, 'toParaList.html', '#', 'paramsg', '参数管理', 'sysmsg', NULL, '1', NULL, '&#xe620;');
 INSERT INTO `oa_sys_menu` VALUES (11, 'toDepartment.html', '#', 'depmsg', '部门管理', 'sysmsg', NULL, '1', NULL, '&#xe620;');
 INSERT INTO `oa_sys_menu` VALUES (12, 'toUserList.html', '#', 'usermsg', '用户管理', 'sysmsg', NULL, '1', NULL, '&#xe620;');
-INSERT INTO `oa_sys_menu` VALUES (13, 'toParaList.html', '#', 'paramsg', '参数管理', 'sysmsg', NULL, '1', NULL, '&#xe620;');
-INSERT INTO `oa_sys_menu` VALUES (14, 'toSolr.html', '#', 'solrmsg', 'solr管理', 'sysmsg', NULL, '1', '2018-10-06 18:51:06', '&#xe620;');
 
 -- ----------------------------
 -- Table structure for oa_sys_pozts
@@ -359,9 +344,9 @@ INSERT INTO `oa_sys_uandr` VALUES (1, 1, 1);
 DROP TABLE IF EXISTS `oa_sys_user`;
 CREATE TABLE `oa_sys_user`  (
   `id` int(100) NOT NULL AUTO_INCREMENT,
-  `username` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '用户名',
-  `password` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '密码',
-  `name` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '姓名',
+  `username` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '用户名',
+  `password` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '密码',
+  `name` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '姓名',
   `departmentid` int(100) DEFAULT NULL COMMENT '部门id',
   `postid` int(100) DEFAULT NULL COMMENT '岗位id',
   `sfzh` varchar(19) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '身份证号码',
@@ -381,13 +366,30 @@ CREATE TABLE `oa_sys_user`  (
   INDEX `fk_sexcode`(`sexcode`) USING BTREE,
   INDEX `username`(`username`) USING BTREE,
   CONSTRAINT `fk_sexcode` FOREIGN KEY (`sexcode`) REFERENCES `oa_sys_sexcode` (`sexcode`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = 'oa 用户表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = 'oa 用户表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of oa_sys_user
 -- ----------------------------
-INSERT INTO `oa_sys_user` VALUES (1, 'admin', '3d4fa24c14a0f629e1d31dd8b37f3afd', '闫树春', 1, 1, '371502199205067838', '2018-09-30', '1992-05-06', 1, '1', '17600200567', '1', '星美城市广场', '戴xx', '12711171980', '2018-09-04 11:29:51', '1', '1');
+INSERT INTO `oa_sys_user` VALUES (1, 'admin', '3d4fa24c14a0f629e1d31dd8b37f3afd', '闫树春', NULL, NULL, '371502199205067838', NULL, '1992-05-06', 1, NULL, '17600200563', '1', '星美城市广场1', NULL, NULL, '2018-10-18 17:12:16', NULL, NULL);
 INSERT INTO `oa_sys_user` VALUES (2, 'gaojing', 'b0534a6f324dc688d7b15e375d5e7ffc', '高晶', 5, 1, '###', '2018-07-11', '1990-05-11', 1, '1', '16606353013', '2', '高新区', '##', '110', '2018-10-11 13:37:21', 'admin', NULL);
+INSERT INTO `oa_sys_user` VALUES (3, 'wangch', '904fdf853879b6245655ea6ca99c1b20', '王长浩', NULL, NULL, '371502199205067888', NULL, '2018-10-10', 7, NULL, '', '1', '星美城市广场', NULL, NULL, '2018-10-18 16:52:19', NULL, NULL);
+
+-- ----------------------------
+-- Table structure for product
+-- ----------------------------
+DROP TABLE IF EXISTS `product`;
+CREATE TABLE `product`  (
+  `id` int(100) NOT NULL AUTO_INCREMENT,
+  `code` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '产品码',
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '产品名称',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '设备表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of product
+-- ----------------------------
+INSERT INTO `product` VALUES (1, '20181101', '永动机');
 
 -- ----------------------------
 -- Table structure for sys_para
