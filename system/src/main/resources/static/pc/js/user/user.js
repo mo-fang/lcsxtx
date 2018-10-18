@@ -16,6 +16,7 @@ layui.use(['table', 'form'], function () {
             {checkbox: true, field: 'id', title: 'ID',  fixed: 'left'}
             , {field: 'username', title: '登录账号', width: '100'}
             , {field: 'name', title: '姓名',align:'center',width: '100'}
+            , {field: 'phonum', title: '电话',align:'center',width: '100'}
             , {field: 'sexcode', title: '性别',templet:"#sexcode",width: '100'}
             // , {field: 'departmentid', title: '所属部门',width: '100',templet:"#departmentid"}
             // , {field: 'postid', title: '岗位职能',width: '100',templet:"#postid"}

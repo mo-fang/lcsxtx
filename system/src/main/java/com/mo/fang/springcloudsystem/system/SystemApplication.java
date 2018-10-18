@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @SpringBootApplication
 @EnableDiscoveryClient
-//@EnableFeignClients
 @MapperScan(value = "com.mo.fang.springcloudsystem.system.mapper")
 public class SystemApplication {
     public static void main(String[] args) {

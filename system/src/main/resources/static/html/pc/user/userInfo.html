@@ -25,8 +25,8 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">登录账号</label>
 			<div class="layui-input-block">
-				<input type="text"  name="username"    class="layui-input">
-				<input type="hidden"  name="id">
+				<input type="text"  name="username"   readonly  class="layui-input">
+				<input type="hidden" readonly  name="id">
 			</div>
 		</div>
 		<!--<div class="layui-form-item">-->
@@ -57,7 +57,7 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">出生年月</label>
 			<div class="layui-input-block">
-				<input type="text" value="" name="birthday" placeholder="请输入出生年月" lay-verify="userBirthday"   class="layui-input userBirthday">
+				<input type="text" id="birthday" value="" name="birthday" readonly placeholder="请输入出生年月" lay-verify="userBirthday"   class="layui-input userBirthday">
 			</div>
 		</div>
 		<div class="layui-form-item">
@@ -107,7 +107,7 @@
 		<div class="layui-form-item">
 			<div class="layui-input-block">
                 <button class="layui-btn" lay-submit lay-filter="formsub">立即提交</button>
-				<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+				<!--<button type="reset" class="layui-btn layui-btn-primary">重置</button>-->
 			</div>
 		</div>
 	</div>

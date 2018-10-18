@@ -14,10 +14,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.omg.PortableInterceptor.USER_EXCEPTION;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import utils.LayUtil;
 import utils.Md5Util;
@@ -58,6 +55,8 @@ public class UserController {
     @GetMapping("toUserInfo.html")
     public ModelAndView toUserInfo(ModelAndView modelAndView){
         SysUser loginUser = SysUtil.getLoginUser();
+        Integer id = loginUser.getId();
+        loginUser = userService.getUserById(id);
 //        List<Department> departments = (List<Department>)redisService.get(PREFIX+"DEPARTMENTS");
         List<Qualification> qualifications = (List<Qualification>)redisService.get(PREFIX+"QUALIFICATIONS");
 //        List<Pozts>  poztses= (List<Pozts>)redisService.get(PREFIX+"POZTSES");
@@ -69,6 +68,33 @@ public class UserController {
         modelAndView.setViewName(viewAdapter);
         return modelAndView;
     }
+    @GetMapping("toChangePwd.html")
+    public ModelAndView toChangePwd(ModelAndView modelAndView){
+        SysUser loginUser = SysUtil.getLoginUser();
+        modelAndView.addObject("user",loginUser);
+        String viewAdapter = adapter.viewAdapter("user/changepwd");
+        modelAndView.setViewName(viewAdapter);
+        return modelAndView;
+    }
+    @PostMapping("doChangePwd.html")
+    public ModelAndView doChangePwd(String pwdold,String pwdn,String pwdnew){
+        Result result = Result.success();
+
+        SysUser loginUser = SysUtil.getLoginUser();
+        Integer id = loginUser.getId();
+        loginUser = userService.getUserById(id);
+        String password = loginUser.getPassword();
+        String username = loginUser.getUsername();
+        String s = Md5Util.MD5AndSalt(pwdold, username);
+        if(!password.equals(s)){
+            result.error(CodeMsg.CHANGE_OLDPWD_ERROR);
+        }
+
+//        modelAndView.addObject("user",loginUser);
+//        String viewAdapter = adapter.viewAdapter("user/changepwd");
+//        modelAndView.setViewName(viewAdapter);
+//        return modelAndView;
+    }
 
     @RequiresPermissions("usermsg:add")
     @GetMapping("toAddUser.html")
@@ -79,7 +105,7 @@ public class UserController {
         modelAndView.addObject("departments",departments);
         modelAndView.addObject("qualifications",qualifications);
         modelAndView.addObject("poztses",poztses);
-        String viewAdapter = adapter.viewAdapter("user/userInfo");
+        String viewAdapter = adapter.viewAdapter("user/add");
         modelAndView.setViewName(viewAdapter);
         return modelAndView;
     }

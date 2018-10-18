@@ -16,9 +16,7 @@ spring:
   datasource:
       username: root
       password: star1022
-#      password: d52efb9de2ca1a9a
       url: jdbc:mysql://localhost:3306/sxtx?characterEncoding=UTF-8&amp;allowMultiQueries=true
-#      url: jdbc:mysql://192.168.1.110:3306/tianyrt_website?characterEncoding=UTF-8&amp;allowMultiQueries=true
       driver-class-name: com.mysql.jdbc.Driver
   thymeleaf:
       cache: false
