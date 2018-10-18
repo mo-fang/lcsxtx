@@ -2,17 +2,13 @@ package com.mo.fang.springcloudsystem.system.controller;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.google.gson.Gson;
 import com.mo.fang.springcloudsystem.system.adapter.ViewAdapter;
-import com.mo.fang.springcloudsystem.system.entity.Category;
 import com.mo.fang.springcloudsystem.system.entity.Department;
-import com.mo.fang.springcloudsystem.system.entity.SysPara;
 import com.mo.fang.springcloudsystem.system.entity.SysUser;
 import com.mo.fang.springcloudsystem.system.serviceI.DepartmentService;
 import com.mo.fang.springcloudsystem.system.serviceI.RedisService;
 import com.mo.fang.springcloudsystem.system.serviceI.UserService;
 import com.mo.fang.springcloudsystem.system.util.SysUtil;
-import com.netflix.discovery.converters.Auto;
 import entity.CodeMsg;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +22,6 @@ import utils.JsonUtil;
 import utils.LayUtil;
 import utils.Result;
 
-import javax.annotation.Resource;
-import javax.lang.model.type.IntersectionType;
 import java.util.List;
 
 /**

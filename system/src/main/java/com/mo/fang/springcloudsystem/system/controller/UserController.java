@@ -9,11 +9,13 @@ import com.mo.fang.springcloudsystem.system.serviceI.RedisService;
 import com.mo.fang.springcloudsystem.system.serviceI.UserService;
 import com.mo.fang.springcloudsystem.system.util.SysUtil;
 import entity.CodeMsg;
+import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.omg.PortableInterceptor.USER_EXCEPTION;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -57,16 +59,17 @@ public class UserController {
     public ModelAndView toUserInfo(ModelAndView modelAndView){
         SysUser loginUser = SysUtil.getLoginUser();
 //        List<Department> departments = (List<Department>)redisService.get(PREFIX+"DEPARTMENTS");
-//        List<Qualification> qualifications = (List<Qualification>)redisService.get(PREFIX+"QUALIFICATIONS");
+        List<Qualification> qualifications = (List<Qualification>)redisService.get(PREFIX+"QUALIFICATIONS");
 //        List<Pozts>  poztses= (List<Pozts>)redisService.get(PREFIX+"POZTSES");
 //        modelAndView.addObject("departments",departments);
-//        modelAndView.addObject("qualifications",qualifications);
+        modelAndView.addObject("qualifications",qualifications);
 //        modelAndView.addObject("poztses",poztses);
         modelAndView.addObject("user",loginUser);
         String viewAdapter = adapter.viewAdapter("user/userInfo");
         modelAndView.setViewName(viewAdapter);
         return modelAndView;
     }
+
     @RequiresPermissions("usermsg:add")
     @GetMapping("toAddUser.html")
     public ModelAndView toAddUser(ModelAndView modelAndView){
@@ -76,7 +79,18 @@ public class UserController {
         modelAndView.addObject("departments",departments);
         modelAndView.addObject("qualifications",qualifications);
         modelAndView.addObject("poztses",poztses);
-        String viewAdapter = adapter.viewAdapter("user/add");
+        String viewAdapter = adapter.viewAdapter("user/userInfo");
+        modelAndView.setViewName(viewAdapter);
+        return modelAndView;
+    }
+    @RequiresPermissions("usermsg:edit")
+    @GetMapping("{id}/toEidtUser.html")
+    public ModelAndView toEidtUser(ModelAndView modelAndView, @PathVariable("id") Integer id) {
+        SysUser user = userService.getUserById(id);
+        List<Qualification>  qualifications = (List<Qualification>)redisService.get(PREFIX+"QUALIFICATIONS");
+        modelAndView.addObject("qualifications",qualifications);
+        modelAndView.addObject("user",user);
+        String viewAdapter = adapter.viewAdapter("user/userInfo");
         modelAndView.setViewName(viewAdapter);
         return modelAndView;
     }
@@ -84,6 +98,9 @@ public class UserController {
     @PostMapping("userList.html")
     public String userList(Integer page,Integer limit,SysUser user){
         PageHelper.startPage(page, limit);
+        SysUser loginUser = SysUtil.getLoginUser();
+        String username = loginUser.getUsername();
+        user.setUpdateuser(username);
         Page<Object> pagehelperPage = PageHelper.getLocalPage();
         List<SysUser> userList = userService.getAllUsers(user);
         String layjson = LayUtil.getLayJsonWeChat(userList,pagehelperPage.getTotal(),page);
@@ -91,7 +108,7 @@ public class UserController {
 
     }
 
-    @RequiresPermissions("usermsg:add")
+    @RequiresPermissions(value = {"usermsg:add", "usermsg:edit"}, logical = Logical.OR )
     @PostMapping("saveOrUpdateUser.html")
     public String saveOrUpdate(SysUser sysUser){
         Result result = Result.success();
@@ -100,6 +117,10 @@ public class UserController {
             sysUser.setUpdateuser(SysUtil.getLoginUser().getUsername());
             String s = Md5Util.MD5AndSalt((String) redisService.get(PREFIX + "PARAS-DEF-PASSWORD"), sysUser.getUsername());
             sysUser.setPassword(s);
+            boolean b = userService.saveOrUpdateUser(sysUser);
+            if (!b)
+                result = Result.error(CodeMsg.SAVE_OR_UPDATE_FAIL);
+        }else {
             boolean b = userService.saveOrUpdateUser(sysUser);
             if (!b)
                 result = Result.error(CodeMsg.SAVE_OR_UPDATE_FAIL);

@@ -10,21 +10,20 @@ import com.mo.fang.springcloudsystem.system.entity.MenuAndButton;
 import com.mo.fang.springcloudsystem.system.serviceI.MenuAndButtonService;
 import com.mo.fang.springcloudsystem.system.serviceI.MenuService;
 import com.mo.fang.springcloudsystem.system.serviceI.RedisService;
-import com.netflix.discovery.converters.Auto;
 import entity.CodeMsg;
-import org.apache.catalina.core.ApplicationContext;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import utils.LayUtil;
 import utils.Result;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * create by Mofang_ysc on 2018/9/17 0017

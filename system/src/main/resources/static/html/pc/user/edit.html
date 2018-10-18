@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改</title>
+</head>
+<body>
+<div class="layui-fluid" style="margin-top: 10px">
+    <div class="layui-card">
+        <form class="layui-form" action="" lay-filter="layui-form-filter" >
+            <div class="layui-form-item">
+                <label class="layui-form-label">登录账号</label>
+                <div class="layui-input-block">
+                    <input type="text" name="username" required lay-verify="required" placeholder="登录账号"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">用户名</label>
+                <div class="layui-input-block">
+                    <input type="text" name="name" required lay-verify="required" placeholder="用户姓名"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">性别</label>
+                <div class="layui-input-block">
+                <input name="sexcode" value="1" title="男" checked="" type="radio">
+                <input name="sexcode" value="2" title="女" type="radio">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">出生日期</label>
+                <div class="layui-input-block">
+                    <input name="birthday" type="text" id="birthday" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">身份证号</label>
+                <div class="layui-input-block">
+                    <input type="text" name="sfzh" required lay-verify="required" placeholder="身份证号"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">学历</label>
+                <div class="layui-input-block">
+                    <select name="qualificationid" class="layui-select-parentMenucode" lay-verify="required" >
+                <option value="">请选择</option>
+                <option th:each="qualification:${qualifications}"  th:value="${qualification.id}"><span th:text="${qualification.name}"></span></option>
+                </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">家庭住址</label>
+                <div class="layui-input-block">
+                    <input type="text" name="addr" required lay-verify="required" placeholder="家庭住址"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="formsub">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+
+<script src="../../../public/layui/laydate/laydate.js"></script>
+<script>
+    laydate.render({
+        elem: '#birthday'
+        ,type: 'date'
+    });
+    <!--laydate.render({-->
+    <!--elem: '#hiredate'-->
+    <!--,type: 'date'-->
+    <!--});-->
+</script>
+<script src="../../../public/bus.js"></script>
+<script src="../../../pc/js/user/user.js"></script>
+</html>

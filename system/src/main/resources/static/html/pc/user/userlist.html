@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>商品类别</title>
+    <title>用户列表</title>
 </head>
 <body class="childrenBody">
 <blockquote class="layui-elem-quote quoteBox">
@@ -14,12 +14,12 @@
             <div class="layui-input-inline">
                 <input type="text" class="layui-input searchVal" id="name-search" name="name" placeholder="姓名" />
             </div>
-            <div class="layui-input-inline">
-                    <select id="department-search" name="department" lay-verify="required">
-                        <option value=""></option>
-                        <option th:each="department:${departments}" th:value="${department.id}" th:text="${department.name}"></option>
-                    </select>
-            </div>
+            <!--<div class="layui-input-inline">-->
+                    <!--<select id="department-search" name="department" lay-verify="required">-->
+                        <!--<option value=""></option>-->
+                        <!--<option th:each="department:${departments}" th:value="${department.id}" th:text="${department.name}"></option>-->
+                    <!--</select>-->
+            <!--</div>-->
             <a class="layui-btn search_btn" data-type="reload">搜索</a>
         </div>
         <div class="layui-inline">

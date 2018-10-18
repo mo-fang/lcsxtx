@@ -12,35 +12,30 @@ layui.use(['table', 'form','upload'], function () {
         , method: 'post'
         , cols: [[ //表头
             {checkbox: true, field: 'id', title: 'ID', width: "5%", fixed: 'left'}
-            , {field: 'categoryid', title: '类别', width: "5%"}
-            , {field: 'name', title: '名称', width: "15%"}
-            , {field: 'subtitle', title: '副标题', width: "15%"}
-            , {field: 'price', title: '价格', width: "5%"}
-            , {field: 'stock', title: '库存', width: "5%"}
-            , {field: 'createtime', title: '创建时间', width: "15%"}
-            , {field: 'updatetime', title: '更新时间', width: "15%"}
+            , {field: 'name', title: '设备名称', width: "45%"}
+            , {field: 'code', title: '设备编码', width: "35%"}
             , {fixed: 'right', title: '操作',width: "10%", toolbar: '#bar'}
         ]]
     });
     // 页面的渲染↑
 
     //执行重新加载的方法--页面的搜索方法。 search ↓
-    $('.layui-search-body .layui-btn').on('click', function(){
+    $('.layui-btn').on('click', function(){
         var type = $(this).data('type');
         active[type] ? active[type].call(this) : '';
     });
     var active = {
         reload: function(){
-            var menuName = $('#menuName-search').val();
-            var parentMenucode = $('#parentMenucode-search').val();
+            var code = $('#code-search').val();
+            var name = $('#name-search').val();
             //执行重载
             table.reload('table_obj', {
                 page: {
                     curr: 1 //重新从第 1 页开始
                 }
                 ,where: {
-                    menuName:menuName
-                    ,parentMenucode:parentMenucode
+                      name:name
+                    ,code:code
                 }
             });
         }
@@ -111,7 +106,7 @@ layui.use(['table', 'form','upload'], function () {
 
     // 新增↓
     // 新增点击事件的监听 ↓
-    $(".tool-bar .btn-add").on('click', function() {
+    $(".addNews_btn").on('click', function() {
         var index = layer.open({
             type: 2,
             anim: 2,
@@ -119,7 +114,14 @@ layui.use(['table', 'form','upload'], function () {
             area: ['100%', '100%'],
             title: ['新增', 'background:#f2f2f2;color:#333;'],
             shade: .5,
-            content: 'toAddProduct.html'
+            content: 'toAddProduct.html',
+            success:function () {
+                setTimeout(function(){
+                    layer.tips('点击此处返回产品列表', '.layui-layer-setwin .layui-layer-close', {
+                        tips: 3
+                    });
+                },500)
+            }
         });
         layer.full(index);
     });

@@ -17,17 +17,17 @@ layui.use(['table', 'form'], function () {
             , {field: 'username', title: '登录账号', width: '100'}
             , {field: 'name', title: '姓名',align:'center',width: '100'}
             , {field: 'sexcode', title: '性别',templet:"#sexcode",width: '100'}
-            , {field: 'departmentid', title: '所属部门',width: '100',templet:"#departmentid"}
-            , {field: 'postid', title: '岗位职能',width: '100',templet:"#postid"}
+            // , {field: 'departmentid', title: '所属部门',width: '100',templet:"#departmentid"}
+            // , {field: 'postid', title: '岗位职能',width: '100',templet:"#postid"}
             , {field: 'sfzh', title: '身份证号码',width: '200'}
-            , {field: 'hiredate', title: '入职时间',width: '200'}
+            // , {field: 'hiredate', title: '入职时间',width: '200'}
             , {field: 'birthday', title: '出生日期',width: '200'}
             , {field: 'qualificationid', title: '学历',width: '100',templet:"#qualificationid"}
-            , {field: 'havewife', title: '婚否',width: '100',templet:"#havewife" }
+            // , {field: 'havewife', title: '婚否',width: '100',templet:"#havewife" }
             , {field: 'addr', title: '家庭住址',width: '300'}
-            , {field: 'sosname', title: '紧急联系人',width: '100'}
-            , {field: 'sosphonnum', title: '联系人电话',width: '100'}
-            , {field: 'updatetime', title: '创建时间',width: '200'}
+            // , {field: 'sosname', title: '紧急联系人',width: '100'}
+            // , {field: 'sosphonnum', title: '联系人电话',width: '100'}
+            // , {field: 'updatetime', title: '创建时间',width: '200'}
             ,{fixed: 'right',title:"操作", toolbar: '#bar',width: '200'}
         ]]
     });
@@ -94,16 +94,24 @@ layui.use(['table', 'form'], function () {
                 })
             });
         } else if (layEvent === 'edit') {
-            layer.open({
+            var index = layer.open({
                 type: 2,
                 anim: 1,
                 shadeClose: false,
                 maxmin: true,
                 title: ['修改', 'background:#f2f2f2;color:#333;'],
                 shade: .5,
-                area: ['600px', '300px'],
-                content: objId+'/toEidtCategory.html'
-            })
+                area: ['100%', '100%'],
+                content: objId+'/toEidtUser.html',
+                success:function () {
+                    setTimeout(function(){
+                        layer.tips('点击此处返回用户列表', '.layui-layer-setwin .layui-layer-close', {
+                            tips: 3
+                        });
+                    },500)
+                }
+            });
+            layer.full(index);
         }
     });
     //监听工具条↑
@@ -116,8 +124,7 @@ layui.use(['table', 'form'], function () {
             type: 2,
             anim: 2,
             shadeClose: false,
-            scrollbar: false,
-            area: ['100%', "100%"],
+            area: ['600px', '600px'],
             title: ['新增', 'background:#f2f2f2;color:#333;'],
             shade: .5,
             content: 'toAddUser.html',
@@ -129,7 +136,7 @@ layui.use(['table', 'form'], function () {
                 },500)
             }
         });
-        layer.full(index);
+        // layer.full(index);
     });
     //监听提交
     form.on('submit(formsub)', function (data) {

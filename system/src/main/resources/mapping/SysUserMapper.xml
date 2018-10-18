@@ -54,6 +54,9 @@
             <if test="departmentid!=null and departmentid!=''">
               and  departmentid = #{departmentid,jdbcType=INTEGER}
             </if>
+            <if test="updateuser!=null and updateuser!='' and updateuser!='admin'">
+                and  updateuser = #{updateuser,jdbcType=VARCHAR}
+            </if>
         </where>
         order by updatetime
     </select>
@@ -108,7 +111,6 @@
         )
         ON DUPLICATE KEY UPDATE
         username =  #{username,jdbcType=VARCHAR},
-        password =  #{password,jdbcType=VARCHAR},
         name = #{name,jdbcType=VARCHAR},
         departmentid =  #{departmentid,jdbcType=INTEGER},
         postid =  #{postid,jdbcType=INTEGER},

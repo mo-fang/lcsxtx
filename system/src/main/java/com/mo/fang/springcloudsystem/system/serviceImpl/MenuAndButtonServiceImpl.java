@@ -3,7 +3,6 @@ package com.mo.fang.springcloudsystem.system.serviceImpl;
 import com.mo.fang.springcloudsystem.system.entity.MenuAndButton;
 import com.mo.fang.springcloudsystem.system.mapper.MenuAndButtonMapper;
 import com.mo.fang.springcloudsystem.system.serviceI.MenuAndButtonService;
-import com.netflix.discovery.converters.Auto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

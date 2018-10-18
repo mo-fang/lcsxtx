@@ -15,6 +15,11 @@ public class UserServiceImpl implements UserService {
     private SysUserMapper sysUserMapper;
 
     @Override
+    public SysUser getUserById(Integer id) {
+        return sysUserMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
     public SysUser getUser(SysUser user) {
         return sysUserMapper.getUser(user);
     }

@@ -2,11 +2,6 @@ package com.mo.fang.springcloudsystem.system.runner;
 
 import com.mo.fang.springcloudsystem.system.entity.*;
 import com.mo.fang.springcloudsystem.system.serviceI.*;
-import com.mo.fang.springcloudsystem.system.serviceImpl.ButtonServiceImpl;
-import com.mo.fang.springcloudsystem.system.serviceImpl.MenuAndButtonServiceImpl;
-import com.mo.fang.springcloudsystem.system.serviceImpl.MenuServiceImpl;
-import com.mo.fang.springcloudsystem.system.serviceImpl.RedisServiceImpl;
-import com.netflix.discovery.converters.Auto;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

@@ -10,17 +10,18 @@ import com.mo.fang.springcloudsystem.system.entity.Role;
 import com.mo.fang.springcloudsystem.system.serviceI.RedisService;
 import com.mo.fang.springcloudsystem.system.serviceI.RoleService;
 import com.mo.fang.springcloudsystem.system.util.SysUtil;
-import com.netflix.discovery.converters.Auto;
 import entity.CodeMsg;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import utils.LayUtil;
 import utils.Result;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
