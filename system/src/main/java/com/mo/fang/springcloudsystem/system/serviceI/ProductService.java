@@ -10,5 +10,9 @@ import java.util.List;
 
 public interface ProductService {
     List<Product> getAllProducts(Product product);
+    void mkcode(Product product) throws Exception;
+    boolean saveOrUpdate(Product product);
+     boolean deleteByPrimaryKey(Integer id) ;
+     void deleteCode(Integer id) ;
 
 }

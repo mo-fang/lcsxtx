@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" />
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body style="text-align: center">
+<img th:if="${type=='er'}" th:src="'/'+${id}+'/'+${type}+'/showImage.html'"  style="width: 150px;height:150px;"  alt="waoooo~~~未生成！！！"  />
+<img th:if="${type=='tiao'}" th:src="'/'+${id}+'/'+${type}+'/showImage.html'"  alt="waoooo~~~未生成！！！" />
+</body>
+</html>

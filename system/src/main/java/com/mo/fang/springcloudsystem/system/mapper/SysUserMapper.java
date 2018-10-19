@@ -22,6 +22,8 @@ public interface SysUserMapper {
 
     int updateByPrimaryKeySelective(SysUser record);
 
+    int changePwd(SysUser record);
+
     int updateByPrimaryKey(SysUser record);
 
     int saveOrUpdateUser(SysUser record);

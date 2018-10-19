@@ -38,6 +38,8 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-feign</artifactId>
         </dependency>
+       
+
         <!--feign 文件上传↓-->
         <!--<dependency>-->
             <!--<groupId>io.github.openfeign.form</groupId>-->

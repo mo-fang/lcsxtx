@@ -17,5 +17,6 @@ public interface RoleService {
     boolean doAuthRole(Integer id,Integer[] mbid);
     boolean doDelRole(Integer id);
     Role selectByPrimaryKey(Integer id);
+    boolean addUandR(Integer id,Integer roleid);
 
 }

@@ -17,6 +17,19 @@
     from oa_sys_role
     where ID = #{id,jdbcType=INTEGER}
   </select>
+  <insert id="addUandR"  parameterType="java.lang.Integer" >
+      insert into oa_sys_uandr (userid,roleid)  values (#{userid,jdbcType=INTEGER},#{roleid,jdbcType=INTEGER})
+
+  </insert>
+    <delete id="deleteuAndRByuserId">
+        delete  from  oa_sys_uandr where userid = #{userid,jdbcType=INTEGER}
+    </delete>
+  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from oa_sys_role t
+    where  exists (select 1 from  oa_sys_uandr a where a.roleid = t.id  and a.userid = #{id,jdbcType=INTEGER})
+  </select>
     <select id="getAllRoles" resultMap="BaseResultMap" parameterType="com.mo.fang.springcloudsystem.system.entity.Role">
         select
         <include refid="Base_Column_List" />
@@ -27,6 +40,9 @@
             </if>
             <if test="code!=null and code!=''">
                 and code like CONCAT('%',#{code,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="insertusername!=null and insertusername!='' and insertusername!='admin'">
+                and insertusername = #{insertusername,jdbcType=VARCHAR}
             </if>
         </where>
         order by INSERTTIME

@@ -3,7 +3,6 @@ document.write("<script type=\"text/javascript\" src=\"../../public/echarts/echa
 document.write("<script type=\"text/javascript\" src=\"../../public/layui/layui.js\" ></script>");
 document.write("<link  rel=\"stylesheet\"  type=\"text/css\" href=\"../../public/layui/css/layui.css\" media=\"all\"></link >");
 document.write("<link  rel=\"stylesheet\"  type=\"text/css\" href=\"../../public/layui/css/public.css\" media=\"all\"></link >");
-document.write("<link  rel=\"stylesheet\"  type=\"text/css\" href=\"../../public/layui/css/layui.css\" media=\"all\"></link >");
 
 // onkeydown="if(event.keyCode==13)return false";
 

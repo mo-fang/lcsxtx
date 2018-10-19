@@ -18,6 +18,7 @@ layui.use(['table', 'form'], function () {
             , {field: 'name', title: '姓名',align:'center',width: '100'}
             , {field: 'phonum', title: '电话',align:'center',width: '100'}
             , {field: 'sexcode', title: '性别',templet:"#sexcode",width: '100'}
+            , {field: 'role', title: '岗位',templet:"#role",width: '100'}
             // , {field: 'departmentid', title: '所属部门',width: '100',templet:"#departmentid"}
             // , {field: 'postid', title: '岗位职能',width: '100',templet:"#postid"}
             , {field: 'sfzh', title: '身份证号码',width: '200'}
@@ -113,6 +114,17 @@ layui.use(['table', 'form'], function () {
                 }
             });
             layer.full(index);
+        }else if (layEvent === 'role') {
+            layer.open({
+                type: 2,
+                anim: 1,
+                shadeClose: false,
+                maxmin: true,
+                title: ['角色', 'background:#f2f2f2;color:#333;'],
+                shade: .5,
+                area: ['600px', '500px'],
+                content: objId+'/toChangeRole.html'
+            })
         }
     });
     //监听工具条↑
@@ -167,6 +179,64 @@ layui.use(['table', 'form'], function () {
         return false;
     });
     // 新增↑
+    //监听提交    修改密码
+    form.on('submit(changePwd)', function (data) {
+        //restful 惹的祸  期待有人能解决。 暂时先用这个笨方法解决吧  ┭┮﹏┭┮
+        var url = "doChangePwd.html";
+        var pwdold = $("#pwdold").val();
+        var pwdn = $("#pwdn").val();
+        var pwdn1 = $("#pwdn1").val();
+
+        if(pwdn==pwdold){
+            layer.msg('新密码和旧密码不能一致', {icon: 1, time: 1e3});
+            return false;
+        }
+        if(pwdn!=pwdn1){
+            layer.msg('两次输入的新密码不一致', {icon: 1, time: 1e3});
+            return false;
+        }
+        // layer.msg(JSON.stringify(data.field));
+        $.ajax({
+            type: 'post',
+            url: url,
+            data: $(".layui-form-changepwd").serialize(),
+            dataType: "json",
+            success: function (data) {
+                if (data.retCode==200){
+                    layer.msg('操作成功', {icon: 1, time: 1e3});
+                } else {
+                    layer.msg(data.message, {icon: 1, time: 1e3});
+                }
+            }
+        });
+        return false;
+    });
+    // 修改密码
+    //监听提交    修改密码
+    form.on('submit(formsubrole)', function (data) {
+        $.ajax({
+            type: 'post',
+            url: "../doChangRole.html",
+            data: $(".layui-form").serialize(),
+            dataType: "json",
+            success: function (data) {
+                if (data.retCode==200){
+                    layer.confirm('操作成功,是否继续操作?', {icon: 3, title: '询问'}, function (index) {
+                        layer.close(index);
+                        return false;
+                    }, function () {
+                        var index = parent.layer.getFrameIndex(window.name);
+                        parent.layer.close(index);
+                        parent.location.reload();
+                    })
+                } else {
+                    layer.msg(data.message, {icon: 1, time: 1e3});
+                }
+            }
+        });
+        return false;
+    });
+    // 修改密码
 
 
     // 业务相关 ↓

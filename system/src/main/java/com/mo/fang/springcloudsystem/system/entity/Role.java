@@ -1,5 +1,6 @@
 package com.mo.fang.springcloudsystem.system.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -8,7 +9,7 @@ import java.util.Date;
  * @author:  Administrator
  * @创建时间: 2018-09-22
  */
-public class Role {
+public class Role  implements Serializable {
     /**
      * 
      */

@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.mo.fang.springcloudsystem.system.adapter.ViewAdapter;
 import com.mo.fang.springcloudsystem.system.entity.*;
 import com.mo.fang.springcloudsystem.system.serviceI.RedisService;
+import com.mo.fang.springcloudsystem.system.serviceI.RoleService;
 import com.mo.fang.springcloudsystem.system.serviceI.UserService;
 import com.mo.fang.springcloudsystem.system.util.SysUtil;
 import entity.CodeMsg;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import utils.JsonUtil;
 import utils.LayUtil;
 import utils.Md5Util;
 import utils.Result;
@@ -32,6 +34,8 @@ public class UserController {
     private ViewAdapter adapter;
     @Autowired
     private UserService userService;
+    @Autowired
+    private RoleService roleService;
     @Autowired
     private RedisService redisService;
     @Value("${oa.redis.system-data.prefix}")
@@ -77,9 +81,8 @@ public class UserController {
         return modelAndView;
     }
     @PostMapping("doChangePwd.html")
-    public ModelAndView doChangePwd(String pwdold,String pwdn,String pwdnew){
+    public String doChangePwd(String pwdold,String pwdn){
         Result result = Result.success();
-
         SysUser loginUser = SysUtil.getLoginUser();
         Integer id = loginUser.getId();
         loginUser = userService.getUserById(id);
@@ -88,12 +91,36 @@ public class UserController {
         String s = Md5Util.MD5AndSalt(pwdold, username);
         if(!password.equals(s)){
             result.error(CodeMsg.CHANGE_OLDPWD_ERROR);
+        }else{
+            String s1 = Md5Util.MD5AndSalt(pwdn, username);
+            loginUser.setPassword(s1);
+            boolean b = userService.changePwd(loginUser);
+            if(!b)
+                result.error(CodeMsg.CHANGE_UPDATEPWD_ERROR);
         }
-
-//        modelAndView.addObject("user",loginUser);
-//        String viewAdapter = adapter.viewAdapter("user/changepwd");
-//        modelAndView.setViewName(viewAdapter);
-//        return modelAndView;
+        return JsonUtil.getInstance().toJson(result);
+    }
+    @RequiresPermissions("usermsg:edit")
+    @GetMapping("{id}/toChangeRole.html")
+    public ModelAndView toChangeRole(ModelAndView modelAndView,@PathVariable("id")Integer id){
+        SysUser user = userService.getUserById(id);
+        List<Role>  roles = (List<Role>)redisService.get(PREFIX+"ROLES");
+        SysUser loginUser = SysUtil.getLoginUser();
+        modelAndView.addObject("userlogin",loginUser);
+        modelAndView.addObject("user",user);
+        modelAndView.addObject("roles",roles);
+        String viewAdapter = adapter.viewAdapter("user/role");
+        modelAndView.setViewName(viewAdapter);
+        return modelAndView;
+    }
+    @RequiresPermissions("usermsg:edit")
+    @PostMapping("doChangRole.html")
+    public String doChangRole(Integer id,Integer roleid){
+        Result result = Result.success();
+        boolean b = roleService.addUandR(id, roleid);
+        if(!b)
+            result = Result.error(CodeMsg.CHANGE_ROLE);
+        return JsonUtil.getInstance().toJson(result);
     }
 
     @RequiresPermissions("usermsg:add")

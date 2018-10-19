@@ -105,6 +105,16 @@ public class SysUser implements Serializable {
      */
     private String enable;
 
+    private  Role  role;
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     /**
      *
      * @return id

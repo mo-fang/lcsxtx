@@ -31,6 +31,8 @@ public class MyCommandLineRunner implements CommandLineRunner {
     private QualificationService qualificationService;
     @Autowired
     private PoztsService poztsService;
+    @Autowired
+    private RoleService roleService;
 
     Logger logger = Logger.getLogger(MyCommandLineRunner.class);
 
@@ -64,6 +66,9 @@ public class MyCommandLineRunner implements CommandLineRunner {
 //        学历
         List<Qualification> qualifications = qualificationService.getQualifications(new Qualification());
         redisService.set(PREFIX+"QUALIFICATIONS",qualifications);
+//        ROLE 角色
+        List<Role> allRoles = roleService.getAllRoles(new Role());
+        redisService.set(PREFIX+"ROLES",allRoles);
         logger.info("System parameters were loaded");
 
     }

@@ -7,6 +7,7 @@ import com.mo.fang.springcloudsystem.system.adapter.ViewAdapter;
 import com.mo.fang.springcloudsystem.system.entity.Menu;
 import com.mo.fang.springcloudsystem.system.entity.MenuAndButton;
 import com.mo.fang.springcloudsystem.system.entity.Role;
+import com.mo.fang.springcloudsystem.system.serviceI.MenuService;
 import com.mo.fang.springcloudsystem.system.serviceI.RedisService;
 import com.mo.fang.springcloudsystem.system.serviceI.RoleService;
 import com.mo.fang.springcloudsystem.system.util.SysUtil;
@@ -36,6 +37,8 @@ public class RoleController {
     private RoleService roleService;
     @Autowired
     private RedisService redisService;
+    @Autowired
+    private MenuService menuService;
     @Value("${oa.redis.system-data.prefix}")
     private String PREFIX;
     private Gson gson = new Gson();
@@ -79,9 +82,10 @@ public class RoleController {
     @RequiresPermissions("rolemsg:auth")
     @GetMapping("{id}/doGetAuth.html")
     public String doGetAuth(ModelAndView modelAndView,@PathVariable("id")Integer id){
-        List<Menu> listMenu = (List<Menu>)redisService.get(PREFIX + "MENUS");
+        List<Menu> menuByUser = menuService.getMenuByUser(SysUtil.getLoginUser());//得到该用户下所有的菜单名称
+//        List<Menu> listMenu = (List<Menu>)redisService.get(PREFIX + "MENUS");
         List<MenuAndButton> menuAndButtons= (List<MenuAndButton>)redisService.get(PREFIX + "MENUANDBUTTONS");
-        String allAuth = roleService.getAllAuth(listMenu, menuAndButtons,id);
+        String allAuth = roleService.getAllAuth(menuByUser, menuAndButtons,id);
         return allAuth;
 
     }
@@ -110,6 +114,7 @@ public class RoleController {
     @PostMapping("roleList.html")
     public String menuList(Integer page, Integer limit, Role role) {
         PageHelper.startPage(page, limit);
+        role.setInsertusername(SysUtil.getLoginUser().getUsername());
         Page<Object> pagehelperPage = PageHelper.getLocalPage();
         List<Role> roleList = roleService.getAllRoles(role);
         String layjson = LayUtil.getLayJsonWeChat(roleList, pagehelperPage.getTotal(), page);

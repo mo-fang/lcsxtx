@@ -6,6 +6,7 @@ import com.mo.fang.springcloudsystem.system.entity.SysUser;
 import entity.CodeMsg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -29,12 +30,22 @@ public class UserServiceImpl implements UserService {
         return sysUserMapper.getAllUsers(user);
     }
 
+    @Transactional
     @Override
     public boolean saveOrUpdateUser(SysUser user) {
         int i = sysUserMapper.saveOrUpdateUser(user);
         boolean flag = i<0?false:true;
         if (!flag)
             throw new RuntimeException(CodeMsg.SERVER_EXCEPTION.toString());
+        return flag;
+    }
+    @Transactional
+    @Override
+    public boolean changePwd(SysUser record) {
+        int i = sysUserMapper.changePwd(record);
+        boolean flag = i<0?false:true;
+        if (!flag)
+            throw new RuntimeException(CodeMsg.CHANGE_UPDATEPWD_ERROR.toString());
         return flag;
     }
 }

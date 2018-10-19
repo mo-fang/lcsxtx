@@ -1,6 +1,7 @@
 package com.mo.fang.springcloudsystem.system.mapper;
 
 import com.mo.fang.springcloudsystem.system.entity.Role;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -24,4 +25,8 @@ public interface RoleMapper {
     int delAuthAndUandRole(Integer id);
 
     int delAuthByOwnerId(Integer id);
+
+    int  addUandR(@Param("userid") Integer id, @Param("roleid") Integer roleid);
+
+    int deleteuAndRByuserId(@Param("userid")Integer userId);
 }

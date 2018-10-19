@@ -88,16 +88,29 @@ layui.use(['table', 'form','upload'], function () {
                 area: ['600px', '500px'],
                 content: objId+'/toEidtMenu.html'
             })
-        } else if (layEvent === 'pic') {
+        } else if (layEvent === 'er') {
             layer.open({
                 type: 2,
                 anim: 1,
                 shadeClose: false,
                 maxmin: true,
-                title: ['上传图片', 'background:#f2f2f2;color:#333;'],
+                title: ['条码展示', 'background:#f2f2f2;color:#333;'],
                 shade: .5,
-                area: ['600px', '500px'],
-                content: objId+'/toUploadPic.html'
+                offset: 'auto',
+                area: ['350px', '350px'],
+                content: objId + '/er/toProductCode.html'
+            });
+        }else if (layEvent === 'tiao') {
+            layer.open({
+                type: 2,
+                anim: 1,
+                shadeClose: false,
+                maxmin: true,
+                offset: 'auto',
+                title: ['条码展示', 'background:#f2f2f2;color:#333;'],
+                shade: .5,
+                area: ['350px', '120px'],
+                content: objId+'/tiao/toProductCode.html'
             })
         }
     });

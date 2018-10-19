@@ -20,4 +20,6 @@ public interface SysRoleMapper {
     int updateByPrimaryKeySelective(SysRole record);
 
     int updateByPrimaryKey(SysRole record);
+
+    int  addUandR(Integer id,Integer roleid);
 }

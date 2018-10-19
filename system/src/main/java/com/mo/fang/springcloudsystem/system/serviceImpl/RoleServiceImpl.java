@@ -5,6 +5,7 @@ import com.mo.fang.springcloudsystem.system.entity.*;
 import com.mo.fang.springcloudsystem.system.mapper.AuthMapper;
 import com.mo.fang.springcloudsystem.system.mapper.MenuAndButtonMapper;
 import com.mo.fang.springcloudsystem.system.mapper.RoleMapper;
+import com.mo.fang.springcloudsystem.system.serviceI.MenuService;
 import com.mo.fang.springcloudsystem.system.serviceI.RedisService;
 import com.mo.fang.springcloudsystem.system.serviceI.RoleService;
 import com.mo.fang.springcloudsystem.system.util.SysUtil;
@@ -30,7 +31,12 @@ public class RoleServiceImpl implements RoleService {
     @Autowired
     private AuthMapper authMapper;
     @Autowired
-    private MenuAndButtonMapper menuAndButtonMapper;
+    private MenuService menuService;
+    @Autowired
+    private RedisService redisService;
+    @Value("${oa.redis.system-data.prefix}")
+    private String PREFIX;
+
     private Gson gson = new Gson();
 
 
@@ -51,9 +57,11 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public String getAllAuth(List<Menu> menuList,List<MenuAndButton>menuAndButtons,Integer id) {
+        List<Menu> listMenu = menuService.getMenuist(SysUtil.getLoginUser());
+
         List<Integer> mbidList = authMapper.getMenuAndButtonIdByAuthTypeAndOwnerId("1", id);
         List<LayTree> rootList = new ArrayList<>();
-        menuList.forEach(menup -> {
+        listMenu.forEach(menup -> {
             String pmenuType = menup.getMenuType();
             String pmenuCode = menup.getMenuCode();
             LayTree layTreep;
@@ -62,7 +70,7 @@ public class RoleServiceImpl implements RoleService {
                 layTreep.setTitle(menup.getMenuName());
                 layTreep.setValue(menup.getId());
                 List<LayTree> layTreeLists = new ArrayList<>();
-                menuList.forEach(menus->{
+                listMenu.forEach(menus->{
                     LayTree layTrees;
                     String parentMenucode = menus.getParentMenucode();
                     if (pmenuCode.equals(parentMenucode)){
@@ -151,5 +159,20 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public Role selectByPrimaryKey(Integer id) {
         return roleMapper.selectByPrimaryKey(id);
+    }
+
+
+    @Transactional
+    @Override
+    public boolean addUandR(Integer id, Integer roleid) {
+        int i1 = roleMapper.deleteuAndRByuserId(id);
+        boolean flag = i1<0?false:true;
+        if (!flag)
+            throw  new RuntimeException(CodeMsg.CHANGE_ROLE.toString());
+        int i = roleMapper.addUandR(id, roleid);
+         flag = i<0?false:true;
+        if (!flag)
+            throw  new RuntimeException(CodeMsg.CHANGE_ROLE.toString());
+        return flag;
     }
 }

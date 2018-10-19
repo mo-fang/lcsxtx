@@ -32,7 +32,7 @@
     <p type="text/html" id="bar" style="display: none">
         <shiro:hasPermission name="usermsg:del"><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" title="删除">删</a></shiro:hasPermission>
         <shiro:hasPermission name="usermsg:edit"><a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit" title="修改">改</a></shiro:hasPermission>
-        <shiro:hasPermission name="usermsg:auth"><a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="auth" title="角色">角</a></shiro:hasPermission>
+        <shiro:hasPermission name="usermsg:auth"><a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="role" title="角色">角</a></shiro:hasPermission>
     </p>
 </div>
 </body>
@@ -87,6 +87,16 @@
     for(var pozts of poztses){
     if(pozts.id==d.postid){return pozts.name;}
     }
+    }
+    }}
+</script>
+<script  type="text/html" id="role">
+    {{#
+    if(d.role != null&&d.role.id != ''){
+    return d.role.name;
+
+    }else{
+    return "未分配角色";
     }
     }}
 </script>

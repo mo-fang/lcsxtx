@@ -21,6 +21,7 @@
         <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
         <result column="updateuser" property="updateuser" jdbcType="VARCHAR" />
         <result column="enable" property="enable" jdbcType="VARCHAR" />
+        <association property="role" column="id" javaType="com.mo.fang.springcloudsystem.system.entity.Role" select="com.mo.fang.springcloudsystem.system.mapper.RoleMapper.selectByUserId"></association>
     </resultMap>
     <sql id="Base_Column_List" >
     id, username, password, name, departmentid, postid, sfzh, hiredate, birthday, qualificationid,
@@ -183,6 +184,9 @@
       </if>
     </trim>
   </insert>
+    <update id="changePwd" parameterType="com.mo.fang.springcloudsystem.system.entity.SysUser" >
+        update oa_sys_user set password = #{password,jdbcType=VARCHAR} where id = #{id,jdbcType=INTEGER}
+    </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.mo.fang.springcloudsystem.system.entity.SysUser" >
     update oa_sys_user
     <set >

@@ -179,7 +179,7 @@ public class MenuServiceImpl implements MenuService {
             if (flag.get()){
                 menuByUser.add(pMenu);
 //                resultBuffer.append(HtmlMenuUtil.li);
-//                flag.set(false);
+                flag.set(false);
 //                resultBuffer.append(HtmlMenuUtil.li01).append(pMenu.getMenuName()).append(HtmlMenuUtil.li02).append(HtmlMenuUtil.li03);
 //                sMenus.forEach(sMenu->{
 //                    resultBuffer.append(HtmlMenuUtil.li04).append(id.getAndIncrement()).

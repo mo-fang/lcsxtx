@@ -36,6 +36,26 @@
     values (#{id,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}
       )
   </insert>
+  <insert id="saveOrUpdate" parameterType="com.mo.fang.springcloudsystem.system.entity.Product" >
+    insert into product (
+    <if test="id!=null and id!=''">
+        id,
+    </if>
+     code, name
+      )
+    values (
+      <if test="id!=null and id!=''">
+          #{id,jdbcType=INTEGER},
+      </if>
+       #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}
+      )
+      ON DUPLICATE KEY UPDATE
+      code = #{code,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR}
+      <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+          select LAST_INSERT_ID()
+      </selectKey>
+  </insert>
   <insert id="insertSelective" parameterType="com.mo.fang.springcloudsystem.system.entity.Product" >
     insert into product
     <trim prefix="(" suffix=")" suffixOverrides="," >
