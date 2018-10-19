@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>角色列表</title>
+    </head>
+    <body class="childrenBody">
+    <blockquote class="layui-elem-quote quoteBox">
+        <form class="layui-form">
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input searchVal" id="code-search" name="code" placeholder="编码" />
+                </div>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input searchVal" id="name-search" name="name" placeholder="名称" />
+                </div>
+                <a class="layui-btn search_btn" data-type="reload">搜索</a>
+            </div>
+            <div class="layui-inline">
+                <shiro:hasPermission name="rolemsg:add"><a class="layui-btn btn-add layui-btn-normal addNews_btn" lay-event="add">添加</a></shiro:hasPermission>
+            </div>
+        </form>
+    </blockquote>
+    <table id="table_obj" lay-filter="obj"></table>
+        <div class="layui-fluid">
+            <p type="text/html" id="bar" style="display: none">
+                <shiro:hasPermission name="rolemsg:del"><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" title="删除">删</a></shiro:hasPermission>
+                <shiro:hasPermission name="rolemsg:auth"><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="auth" title="授权">权</a></shiro:hasPermission>
+                <shiro:hasPermission name="rolemsg:edit"><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="edit" title="删除">改</a></shiro:hasPermission>
+            </p>
+        </div>
+    </body>
+    <script src="../../../public/bus.js"></script>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var pMenus = [[${pMenus}]];
+        /*]]>*/
+    </script>
+    <script  type="text/html" id="parentMenucode">
+        {{#
+        if(d.parentMenucode != '' && d.parentMenucode != null && d.parentMenucode !='ROOT'){
+        for(var menu of pMenus){
+            console.info(menu.menuCode+d.parentMenucode);
+        if(menu.menuCode==d.parentMenucode){return menu.menuName;}
+        }
+        }else{
+        return '顶级菜单';
+        }
+        }}
+    </script>
+    <!--直接在；layui中使用thymeleaf 取作用域中的值 产生中文变成Unicode的问题-->
+    <script  type="text/html" id="menuType">
+        {{#
+        if(d.menuType != '' && d.menuType != null){
+            if(d.menuType=='1')return '子菜单';
+            if(d.menuType=='0')return '父菜单';
+        }
+        }}
+    </script>
+    <script  type="text/html" id="formartdate">
+        {{#
+        if(d.inserttime!=''){
+             var date = new Date(d.inserttime);
+        console.info(date);
+             return date.getFullYear() + '年' + (date.getMonth() + 1) + '月' + date.getDate()+'日'+date.getHours()+':'+date.getMinutes()+':'+date.getSeconds();;
+         }else{
+             return '';
+        }
+        }}
+    </script>
+    <script src="../../js/role/role.js"></script>
+</html>

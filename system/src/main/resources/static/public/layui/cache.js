@@ -22,8 +22,10 @@ layui.use(['form','jquery',"layer"],function() {
         $("#userFace").attr("src","//t.cn/RCzsdCq");
     }
 
+
     //公告层
     function showNotice(){
+        var a = '123';
         layer.open({
             type: 1,
             title: "系统公告",
@@ -32,7 +34,7 @@ layui.use(['form','jquery',"layer"],function() {
             id: 'LAY_layuipro',
             btn: ['朕，已阅'],
             moveType: 1,
-            content: '<div style="padding:15px 20px; text-align:justify; line-height: 22px; text-indent:2em;border-bottom:1px solid #e2e2e2;"><p class="layui-red">明天不上班了，并且每人奖励1000元</span></p></div>',
+            content: '<div style="padding:15px 20px; text-align:justify; line-height: 22px; text-indent:2em;border-bottom:1px solid #e2e2e2;"><p class="layui-red" ><span >'+NOTICE+'</span></p></div>',
             success: function(layero){
                 var btn = layero.find('.layui-layer-btn');
                 btn.css('text-align', 'center');
@@ -97,14 +99,32 @@ layui.use(['form','jquery',"layer"],function() {
             layer.msg("请输入解锁密码！");
             $(this).siblings(".admin-header-lock-input").focus();
         }else{
-            if($(this).siblings(".admin-header-lock-input").val() == "123456"){
-                window.sessionStorage.setItem("lockcms",false);
-                $(this).siblings(".admin-header-lock-input").val('');
-                layer.closeAll("page");
-            }else{
-                layer.msg("密码错误，请重新输入！");
-                $(this).siblings(".admin-header-lock-input").val('').focus();
-            }
+            $.ajax({
+                url:"unLock.html"
+                ,data:{'pwd':$(this).siblings(".admin-header-lock-input").val()}
+                ,type:'post'
+                ,dataType:'json'
+                ,success:function (data) {
+                    if(data.retCode==200){
+                        window.sessionStorage.setItem("lockcms",false);
+                        $(this).siblings(".admin-header-lock-input").val('');
+                        layer.closeAll("page");
+                    }else {
+                        layer.msg(data.message);
+                        $(this).siblings(".admin-header-lock-input").val('').focus();
+                    }
+
+                }
+
+            })
+            // if($(this).siblings(".admin-header-lock-input").val() == "123456"){
+            //     window.sessionStorage.setItem("lockcms",false);
+            //     $(this).siblings(".admin-header-lock-input").val('');
+            //     layer.closeAll("page");
+            // }else{
+            //     layer.msg("密码错误，请重新输入！");
+            //     $(this).siblings(".admin-header-lock-input").val('').focus();
+            // }
         }
     });
     $(document).on('keydown', function(event) {

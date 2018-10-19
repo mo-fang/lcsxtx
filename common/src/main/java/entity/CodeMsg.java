@@ -14,6 +14,7 @@ public class CodeMsg {
     public static CodeMsg PARAMETER_ISNULL = new CodeMsg(202,"输入参数为空");
     public static CodeMsg DB_EXCEPTION = new CodeMsg(203,"数据异常！");
     // 业务异常
+    public static CodeMsg PWD_ERROR= new CodeMsg(99096 ,"密码错误，请重新输入密码!");
     public static CodeMsg CHANGE_ROLE= new CodeMsg(99097 ,"更改角色错误!");
     public static CodeMsg CHANGE_OLDPWD_ERROR= new CodeMsg(99098,"原密码错误!");
     public static CodeMsg CHANGE_UPDATEPWD_ERROR= new CodeMsg(99099,"更新密码错误!");

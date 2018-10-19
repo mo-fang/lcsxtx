@@ -33,9 +33,11 @@ public class WelController {
     public ModelAndView toIndex(ModelAndView modelAndView){
         SysUser loginUser = SysUtil.getLoginUser();
         String SYSNAME = (String)redisService.get(PREFIX + "PARAS-SYSNAME");
+        String NOTICE = (String)redisService.get(PREFIX + "PARAS-SYS-NOTICE");
         List<Menu> menus = menuService.getMenuist(loginUser);
         String viewName = adapter.viewAdapter("index");
         modelAndView.addObject("SYSNAME",SYSNAME);
+        modelAndView.addObject("NOTICE",NOTICE);
         modelAndView.addObject("user",loginUser);
         modelAndView.addObject("menus",menus);
         modelAndView.setViewName(viewName);

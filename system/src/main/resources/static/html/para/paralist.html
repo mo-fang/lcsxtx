@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>系统参数</title>
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-card">
+        <div class="layui-form layui-card-header layuiadmin-card-header-auto" lay-filter="layadmin-useradmin-formlist">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">参数名称</label>
+                    <div class="layui-input-block">
+                        <input id="name-search" name="name" placeholder="请输入查询条件" autocomplete="off" class="layui-input" type="text">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">备注</label>
+                    <div class="layui-input-block">
+                        <input id="mark-search" name="mark" placeholder="请输入查询条件" autocomplete="off" class="layui-input" type="text">
+                    </div>
+                </div>
+                <div class="layui-inline layui-search-body">
+                    <button class="layui-btn layuiadmin-btn-admin" data-type="reload" lay-submit="" lay-filter="LAY-user-back-search">
+                        <i class="layui-icon layui-icon-search layuiadmin-button-btn" data-type="reload"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-card-body">
+            <div class="tool-bar" style="padding-bottom: 10px;">
+                <button class="layui-btn btn-add" lay-event="add">新增</button>
+            </div>
+            <table id="table_obj" lay-filter="obj"></table>
+        </div>
+    </div>
+    <p type="text/html" id="bar" style="display: none">
+        <shiro:hasPermission name="paramsg:del"><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" title="删除">删</a></shiro:hasPermission>
+        <shiro:hasPermission name="paramsg:edit"><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="edit" title="修改">改</a></shiro:hasPermission>
+    </p>
+</div>
+</body>
+<script src="../../public/bus.js"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+      var pCategorys = [[${pCategorys}]];
+    /*]]>*/
+</script>
+<!--直接在；layui中使用thymeleaf 取作用域中的值 产生中文变成Unicode的问题-->
+<script  type="text/html" id="enable">
+    {{#
+    if(d.enable != '' && d.enable != null){
+    if(d.enable==1){
+        return '启用'
+      }else if(d.enable==0)
+        return '失效'
+        }
+    }}
+</script>
+<script src="../../js/para/para.js"></script>
+</html>

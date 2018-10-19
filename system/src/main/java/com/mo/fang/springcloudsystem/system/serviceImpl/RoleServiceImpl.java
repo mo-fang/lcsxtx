@@ -2,6 +2,7 @@ package com.mo.fang.springcloudsystem.system.serviceImpl;
 
 import com.google.gson.Gson;
 import com.mo.fang.springcloudsystem.system.entity.*;
+import com.mo.fang.springcloudsystem.system.event.LoadingDataEvent;
 import com.mo.fang.springcloudsystem.system.mapper.AuthMapper;
 import com.mo.fang.springcloudsystem.system.mapper.MenuAndButtonMapper;
 import com.mo.fang.springcloudsystem.system.mapper.RoleMapper;
@@ -12,6 +13,7 @@ import com.mo.fang.springcloudsystem.system.util.SysUtil;
 import entity.CodeMsg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import utils.MapperFlag;
@@ -34,6 +36,8 @@ public class RoleServiceImpl implements RoleService {
     private MenuService menuService;
     @Autowired
     private RedisService redisService;
+    @Autowired
+    private ApplicationContext applicationContext;
     @Value("${oa.redis.system-data.prefix}")
     private String PREFIX;
 
@@ -47,6 +51,8 @@ public class RoleServiceImpl implements RoleService {
         String username = loginUser.getUsername();
         role.setInsertusername(username);
         int insert = roleMapper.saveOrUpdateRole(role);
+        if(MapperFlag.tOrf(insert))
+        applicationContext.publishEvent(new LoadingDataEvent(this,roleMapper));
         return MapperFlag.tOrf(insert);
     }
 
@@ -57,8 +63,8 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public String getAllAuth(List<Menu> menuList,List<MenuAndButton>menuAndButtons,Integer id) {
-        List<Menu> listMenu = menuService.getMenuist(SysUtil.getLoginUser());
-
+        SysUser loginUser = SysUtil.getLoginUser();
+        List<Menu> listMenu ="admin".equals(loginUser.getRole().getCode())?(List<Menu>)redisService.get(PREFIX + "MENUS"):menuService.getMenuist(loginUser);
         List<Integer> mbidList = authMapper.getMenuAndButtonIdByAuthTypeAndOwnerId("1", id);
         List<LayTree> rootList = new ArrayList<>();
         listMenu.forEach(menup -> {

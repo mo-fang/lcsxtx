@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>商品类别</title>
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-card">
+        <div class="layui-form layui-card-header layuiadmin-card-header-auto" lay-filter="layadmin-useradmin-formlist">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">名称</label>
+                    <div class="layui-input-block">
+                        <input id="name-search" name="name" placeholder="请输入" autocomplete="off" class="layui-input" type="text">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">所属类别</label>
+                    <div class="layui-input-block">
+                        <select id="parentid-search" name="parentid" >
+                            <option value=""></option>
+                            <option th:each="category:${pCategorys}"  th:value="${category.id}" th:text="${category.name}"> </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-inline layui-search-body">
+                    <button class="layui-btn layuiadmin-btn-admin" data-type="reload" lay-submit="" lay-filter="LAY-user-back-search">
+                        <i class="layui-icon layui-icon-search layuiadmin-button-btn" data-type="reload"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-card-body">
+            <div class="tool-bar" style="padding-bottom: 10px;">
+                <shiro:hasPermission name="categorymsg:add"><button class="layui-btn btn-add" lay-event="add">新增</button></shiro:hasPermission>
+            </div>
+            <table id="table_obj" lay-filter="obj"></table>
+        </div>
+    </div>
+    <p type="text/html" id="bar" style="display: none">
+        <shiro:hasPermission name="categorymsg:del"><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" title="删除">删</a></shiro:hasPermission>
+        <shiro:hasPermission name="categorymsg:edit"><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="edit" title="修改">改</a></shiro:hasPermission>
+    </p>
+</div>
+</body>
+<script src="../../public/bus.js"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+      var pCategorys = [[${pCategorys}]];
+    /*]]>*/
+</script>
+<!--直接在；layui中使用thymeleaf 取作用域中的值 产生中文变成Unicode的问题-->
+<script  type="text/html" id="parentid">
+    {{#
+    if(d.parentid != '' && d.parentid != null || d.parentid !=0){
+    for(var category of pCategorys){
+        if(category.id == d.parentid){
+              return category.name;
+            }
+        }
+      }
+    }}
+</script>
+<script src="../../js/category/category.js"></script>
+</html>

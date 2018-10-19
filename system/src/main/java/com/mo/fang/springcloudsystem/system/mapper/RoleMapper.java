@@ -2,9 +2,11 @@ package com.mo.fang.springcloudsystem.system.mapper;
 
 import com.mo.fang.springcloudsystem.system.entity.Role;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface RoleMapper {
     int deleteByPrimaryKey(Integer id);
 

@@ -38,7 +38,7 @@ pagehelper:
 
 website:
   view:
-    pc-prefix: pc/
+    pc-prefix: /
     mobile-prefix: mobile/
 oa:
   redis:

@@ -100,4 +100,20 @@ public class LoadingDataEvent extends ApplicationEvent {
         List<Department> departments = departmentMapper.getDeparts(new Department());
         redisService.set(PREFIX+"DEPARTMENTS",departments);
     }
+//--------------------------------------部门redis 重载-------------------------------------------------
+
+    private RoleMapper roleMapper;
+
+    public RoleMapper getRoleMapper() {
+        return roleMapper;
+    }
+    public  LoadingDataEvent(Object source,RoleMapper roleMapper){
+        super(source);
+        this.roleMapper = roleMapper;
+    }
+    public void setRole_reload(RedisServiceImpl redisService, String PREFIX) {
+        redisService.remove(PREFIX+"ROLES");
+        List<Role> allRoles = roleMapper.getAllRoles(new Role());
+        redisService.set(PREFIX+"ROLES",allRoles);
+    }
 }

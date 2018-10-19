@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>商品类别</title>
+    </head>
+    <body class="childrenBody">
+        <div class="layui-fluid">
+            <div class="layui-card">
+                <div class="layui-form layui-card-header layuiadmin-card-header-auto" lay-filter="layadmin-useradmin-formlist">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">名称</label>
+                            <div class="layui-input-block">
+                                <input id="menuName-search" name="menuName" placeholder="请输入" autocomplete="off" class="layui-input" type="text">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">所属菜单</label>
+                            <div class="layui-input-block">
+                                <select id="parentMenucode-search" name="parentMenucode" >
+                                    <option value=""></option>
+                                    <option th:each="menu:${pMenus}"  th:value="${menu.menuCode}" th:text="${menu.menuName}"> </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-inline layui-search-body">
+                            <button class="layui-btn layuiadmin-btn-admin" data-type="reload" lay-submit="" lay-filter="LAY-user-back-search">
+                                <i class="layui-icon layui-icon-search layuiadmin-button-btn" data-type="reload"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-card-body">
+                    <div class="tool-bar" style="padding-bottom: 10px;">
+                        <button class="layui-btn btn-add" lay-event="add">新增</button>
+                    </div>
+                    <table id="table_obj" lay-filter="obj"></table>
+                </div>
+            </div>
+            <p type="text/html" id="bar" style="display: none">
+                <shiro:hasPermission name="menumsg:search"><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" title="删除">删</a></shiro:hasPermission>
+                <shiro:hasPermission name="menumsg:search"><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="edit" title="删除">改</a></shiro:hasPermission>
+            </p>
+        </div>
+    </body>
+    <script src="../../public/bus.js"></script>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var pMenus = [[${pMenus}]];
+        /*]]>*/
+    </script>
+    <script  type="text/html" id="parentMenucode">
+        {{#
+        if(d.parentMenucode != '' && d.parentMenucode != null && d.parentMenucode !='ROOT'){
+        for(var menu of pMenus){
+        if(menu.menuCode==d.parentMenucode){return menu.menuName;}
+        }
+        }else{
+        return '顶级菜单';
+        }
+        }}
+    </script>
+    <!--直接在；layui中使用thymeleaf 取作用域中的值 产生中文变成Unicode的问题-->
+    <script  type="text/html" id="menuType">
+        {{#
+        if(d.menuType != '' && d.menuType != null){
+        if(d.menuType=='1')return '子菜单';
+        if(d.menuType=='0')return '父菜单';
+        }
+        }}
+    </script>
+    <script src="../../js/menu/menu.js"></script>
+</html>

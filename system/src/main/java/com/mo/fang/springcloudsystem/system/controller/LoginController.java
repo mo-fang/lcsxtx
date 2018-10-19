@@ -1,6 +1,7 @@
 package com.mo.fang.springcloudsystem.system.controller;
 
 import com.mo.fang.springcloudsystem.system.adapter.ViewAdapter;
+import com.mo.fang.springcloudsystem.system.serviceI.UserService;
 import entity.CodeMsg;
 import com.mo.fang.springcloudsystem.system.entity.SysUser;
 import org.apache.shiro.SecurityUtils;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import utils.JsonUtil;
+import utils.Md5Util;
 import utils.Result;
 import com.mo.fang.springcloudsystem.system.util.SysUtil;
 
@@ -27,6 +29,8 @@ import javax.servlet.http.HttpServletRequest;
 public class LoginController {
     @Autowired
     private ViewAdapter adapter;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("login.html")
     public ModelAndView login(HttpServletRequest request, ModelAndView modelAndView) {
@@ -35,6 +39,16 @@ public class LoginController {
         return modelAndView;
     }
 
+    @PostMapping("unLock.html")
+    public String unLock(String pwd){
+        Result result = Result.success();
+        SysUser loginUser = SysUtil.getLoginUser();
+        Integer id = loginUser.getId();
+        SysUser userById = userService.getUserById(id);
+        String password = userById.getPassword();
+        result=password.equals(Md5Util.MD5AndSalt(pwd,userById.getUsername()))?result:Result.error(CodeMsg.PWD_ERROR);
+        return JsonUtil.getInstance().toJson(result);
+    }
     @PostMapping("doLogin.html")
     public String doLogin(SysUser user) {
         Result result = Result.success();

@@ -28,7 +28,11 @@ public class DataRelodApplicationListener implements ApplicationListener<Loading
 
         if (applyEvent.getSysParaMapper()!=null)
             applyEvent.setSysPara_reload(redisService,PREFIX);
+
         if (applyEvent.getDepartmentMapper()!=null)
             applyEvent.setDepartment_reload(redisService,PREFIX);
+
+        if (applyEvent.getRoleMapper()!=null)
+            applyEvent.setRole_reload(redisService,PREFIX);
     }
 }
