@@ -25,7 +25,7 @@ layui.use(['form','jquery',"layer"],function() {
 
     //公告层
     function showNotice(){
-        var a = '123';
+        NOTICE=NOTICE==null?"暂无公告":NOTICE
         layer.open({
             type: 1,
             title: "系统公告",

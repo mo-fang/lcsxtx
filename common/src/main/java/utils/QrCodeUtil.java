@@ -23,6 +23,7 @@ public class QrCodeUtil {
      * @param imgPath
      */
     public static void encodeQRCode(String contents, int width, int height, String imgPath) {
+        mkdirs(imgPath);
         Map<EncodeHintType, Object> hints = new Hashtable<>();
         // 指定纠错等级
         hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
@@ -78,6 +79,7 @@ public class QrCodeUtil {
      */
     // int width = 105, height = 50; 长度很容易报错:NotFoundException
     public static void encodeBarCode(String contents, int width, int height, String imgPath) {
+        mkdirs(imgPath);
         int codeWidth = 3 + // start guard
                 (7 * 6) + // left bars
                 + // middle guard
@@ -122,6 +124,24 @@ public class QrCodeUtil {
             e.printStackTrace();
         }
         return null;
+    }
+
+
+    /**
+     * 当文件夹不存在时，mkdirs会自动创建多层目录，区别于mkdir．(mkdir如果父目录不存在则会抛出异常)
+     *
+     * @param destPath 存放目录
+     */
+    public static void mkdirs(String destPath) {
+        File file = new File(destPath);
+        if(!file.isDirectory()){
+            File fileParent = file.getParentFile();
+            if (!fileParent.exists() ) {
+                fileParent.mkdirs();
+            }
+        }else if (!file.exists() ) {
+            file.mkdirs();
+        }
     }
 
 }

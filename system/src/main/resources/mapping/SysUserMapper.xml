@@ -56,7 +56,7 @@
               and  departmentid = #{departmentid,jdbcType=INTEGER}
             </if>
             <if test="updateuser!=null and updateuser!='' and updateuser!='admin'">
-                and  updateuser = #{updateuser,jdbcType=VARCHAR}
+                and  updateuser = #{updateuser,jdbcType=VARCHAR} or username = #{updateuser,jdbcType=VARCHAR}
             </if>
         </where>
         order by updatetime

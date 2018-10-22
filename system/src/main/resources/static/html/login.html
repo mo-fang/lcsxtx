@@ -17,6 +17,11 @@
             window.parent.location.reload(true);
         }
     </script>
+    <style>
+        body{
+            background-image: url("../public/img/loginbk1.jpg");
+        }
+    </style>
 </head>
 <body class="loginBody">
 <form class="layui-form" id="subform">
@@ -29,11 +34,11 @@
         <label for="password">密码</label>
         <input type="password" placeholder="请输入密码" autocomplete="off" id="password" name="password" class="layui-input" lay-verify="required">
     </div>
-    <div class="layui-form-item input-item" id="imgCode">
-        <label for="code">验证码</label>
-        <input type="text" placeholder="请输入验证码" autocomplete="off" id="code" class="layui-input">
-        <img src="">
-    </div>
+    <!--<div class="layui-form-item input-item" id="imgCode">-->
+        <!--<label for="code">验证码</label>-->
+        <!--<input type="text" placeholder="请输入验证码" autocomplete="off" id="code" class="layui-input">-->
+        <!--<img src="">-->
+    <!--</div>-->
     <div class="layui-form-item">
         <button class="layui-btn layui-block" lay-filter="login" lay-submit>登录</button>
     </div>
