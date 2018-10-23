@@ -202,6 +202,8 @@ public class ProductController {
     public ModelAndView toProductCode(ModelAndView modelAndView,@PathVariable("id")Integer id,@PathVariable("type")String type){
         String viewAdapter = adapter.viewAdapter("product/qrcode");
         modelAndView.addObject("id",id);
+        Product productById = productService.getProductById(id);
+        modelAndView.addObject("product",productById);
         modelAndView.addObject("type",type);
         modelAndView.setViewName(viewAdapter);
         return modelAndView;

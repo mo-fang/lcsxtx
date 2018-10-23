@@ -2,48 +2,24 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>商品类别</title>
+        <title>部门列表</title>
     </head>
     <body>
         <div class="layui-fluid">
-            <div class="layui-card">
-                <!--<div class="layui-form layui-card-header layuiadmin-card-header-auto" lay-filter="layadmin-useradmin-formlist">-->
-                    <!--<div class="layui-form-item">-->
-                        <!--<div class="layui-inline">-->
-                            <!--<label class="layui-form-label">名称</label>-->
-                            <!--<div class="layui-input-block">-->
-                                <!--<input id="menuName-search" name="menuName" placeholder="请输入" autocomplete="off" class="layui-input" type="text">-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="layui-inline">-->
-                            <!--<label class="layui-form-label">所属菜单</label>-->
-                            <!--<div class="layui-input-block">-->
-                                <!--<select id="parentMenucode-search" name="parentMenucode" >-->
-                                    <!--<option value=""></option>-->
-                                    <!--<option th:each="menu:${pMenus}"  th:value="${menu.menuCode}" th:text="${menu.menuName}"> </option>-->
-                                <!--</select>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="layui-inline layui-search-body">-->
-                            <!--<button class="layui-btn layuiadmin-btn-admin" data-type="reload" lay-submit="" lay-filter="LAY-user-back-search">-->
-                                <!--<i class="layui-icon layui-icon-search layuiadmin-button-btn" data-type="reload"></i>-->
-                            <!--</button>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-
-                <div class="layui-card-body">
-                    <div class="tool-bar" style="padding-bottom: 10px;">
-                        <button class="layui-btn btn-add" lay-event="add">新增</button>
+            <blockquote class="layui-elem-quote quoteBox">
+                <form class="layui-form">
+                    <div class="layui-inline">
+                        <shiro:hasPermission name="depmsg:add"><a class="layui-btn btn-add layui-btn-normal addNews_btn" lay-event="add">添加</a></shiro:hasPermission>
                     </div>
-                    <table id="table_obj" lay-filter="obj"></table>
-                </div>
+                </form>
+            </blockquote>
+            <table id="table_obj" lay-filter="obj"></table>
+            <div class="layui-fluid">
+                <p type="text/html" id="bar" style="display: none">
+                    <shiro:hasPermission name="depmsg:del"><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" title="删除">删</a></shiro:hasPermission>
+                    <shiro:hasPermission name="depmsg:edit"><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="edit" title="修改">改</a></shiro:hasPermission>
+                </p>
             </div>
-            <p type="text/html" id="bar" style="display: none">
-                <shiro:hasPermission name="menumsg:search"><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" title="删除">删</a></shiro:hasPermission>
-                <shiro:hasPermission name="menumsg:search"><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="edit" title="删除">改</a></shiro:hasPermission>
-            </p>
-        </div>
     </body>
     <script src="../../public/bus.js"></script>
     <script th:inline="javascript">

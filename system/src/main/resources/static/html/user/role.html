@@ -12,9 +12,15 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">学历</label>
                         <div class="layui-input-block">
-                            <select name="roleid" class="layui-select-parentMenucode" lay-verify="required" >
+                            <select th:if="${userlogin.username!='admin'}"  name="roleid" class="layui-select-parentMenucode" lay-verify="required" >
                                 <option value="-1">请选择</option>
-                                <option th:each="role:${roles}" th:if="${role.insertusername==userlogin.username}"  th:value="${role.id}"><span th:text="${role.name}"></span></option>
+                                <option  th:each="role:${roles}" th:if="${role.insertusername==userlogin.username}"  th:value="${role.id}"><span th:text="${role.name}"></span></option>
+                                <!--<option  th:unless="${userlogin.username!='admin'}" th:each="role:${roles}"  th:value="${role.id}"><span th:text="${role.name}"></span></option>-->
+                            </select>
+                            <select th:if="${userlogin.username=='admin'}"  name="roleid" class="layui-select-parentMenucode" lay-verify="required" >
+                                <option value="-1">请选择</option>
+                                <option  th:each="role:${roles}"  th:value="${role.id}"><span th:text="${role.name}"></span></option>
+                                <!--<option  th:unless="${userlogin.username!='admin'}" th:each="role:${roles}"  th:value="${role.id}"><span th:text="${role.name}"></span></option>-->
                             </select>
                         </div>
                     </div>

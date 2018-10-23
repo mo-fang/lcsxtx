@@ -108,7 +108,7 @@
     </div>
     <!-- 底部 -->
     <div class="layui-footer footer">
-        <p><span>copyright @2018</span><a onclick="donation()" class="layui-btn layui-btn-danger layui-btn-sm">联系管理员</a></p>
+        <p><span>copyright @2018&nbsp;&nbsp;</span><a onclick="donation()" class="layui-btn layui-btn-danger layui-btn-sm">联系管理员</a></p>
     </div>
 </div>
 
@@ -118,6 +118,7 @@
 <script th:inline="javascript">
     /*<![CDATA[*/
     NOTICE = [[${NOTICE}]];
+    USERNAME = [[${user.name}]]
     /*]]>*/
 </script>
 <script src="../public/layui/layui.js"></script>

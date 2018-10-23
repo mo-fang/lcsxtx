@@ -7,6 +7,7 @@ import entity.CodeMsg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import utils.MapperFlag;
 
 import java.util.List;
 
@@ -39,6 +40,20 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException(CodeMsg.SERVER_EXCEPTION.toString());
         return flag;
     }
+
+    @Transactional
+    @Override
+    public boolean doDelUser(Integer id){
+        int i = sysUserMapper.deleteByPrimaryKey(id);
+        boolean flag = MapperFlag.tOrf(i);
+        if (!flag)
+            throw new RuntimeException(CodeMsg.DEL_FAIL.toString());
+        return flag;
+    }
+
+
+
+
     @Transactional
     @Override
     public boolean changePwd(SysUser record) {

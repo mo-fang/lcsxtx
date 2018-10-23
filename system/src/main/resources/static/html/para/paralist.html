@@ -5,41 +5,28 @@
     <title>系统参数</title>
 </head>
 <body>
+<blockquote class="layui-elem-quote quoteBox">
+    <form class="layui-form">
+        <div class="layui-inline">
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input searchVal" id="name-search" name="name" placeholder="名称" />
+            </div>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input searchVal" id="mark-search" name="mark" placeholder="备注" />
+            </div>
+            <a class="layui-btn search_btn" data-type="reload">搜索</a>
+        </div>
+        <div class="layui-inline">
+            <shiro:hasPermission name="paramsg:add"><a class="layui-btn btn-add layui-btn-normal addNews_btn" lay-event="add">添加</a></shiro:hasPermission>
+        </div>
+    </form>
+</blockquote>
+<table id="table_obj" lay-filter="obj"></table>
 <div class="layui-fluid">
-    <div class="layui-card">
-        <div class="layui-form layui-card-header layuiadmin-card-header-auto" lay-filter="layadmin-useradmin-formlist">
-            <div class="layui-form-item">
-                <div class="layui-inline">
-                    <label class="layui-form-label">参数名称</label>
-                    <div class="layui-input-block">
-                        <input id="name-search" name="name" placeholder="请输入查询条件" autocomplete="off" class="layui-input" type="text">
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label">备注</label>
-                    <div class="layui-input-block">
-                        <input id="mark-search" name="mark" placeholder="请输入查询条件" autocomplete="off" class="layui-input" type="text">
-                    </div>
-                </div>
-                <div class="layui-inline layui-search-body">
-                    <button class="layui-btn layuiadmin-btn-admin" data-type="reload" lay-submit="" lay-filter="LAY-user-back-search">
-                        <i class="layui-icon layui-icon-search layuiadmin-button-btn" data-type="reload"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <div class="layui-card-body">
-            <div class="tool-bar" style="padding-bottom: 10px;">
-                <button class="layui-btn btn-add" lay-event="add">新增</button>
-            </div>
-            <table id="table_obj" lay-filter="obj"></table>
-        </div>
-    </div>
     <p type="text/html" id="bar" style="display: none">
-        <shiro:hasPermission name="paramsg:del"><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" title="删除">删</a></shiro:hasPermission>
-        <shiro:hasPermission name="paramsg:edit"><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="edit" title="修改">改</a></shiro:hasPermission>
-    </p>
+    <shiro:hasPermission name="paramsg:del"><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" title="删除">删</a></shiro:hasPermission>
+    <shiro:hasPermission name="paramsg:edit"><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="edit" title="修改">改</a></shiro:hasPermission>
+</p>
 </div>
 </body>
 <script src="../../public/bus.js"></script>

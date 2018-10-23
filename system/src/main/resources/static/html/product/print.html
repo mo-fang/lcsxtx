@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>printFrameQR</title>
+</head>
+<body onload="this.focus();this.print()">
+<div>
+    <c:forEach var="printID" items="${ids}" varStatus="lis">
+        <div id="bcTarget${lis.index }">
+            <img src="${rootPath}/qrPrint/showEWMImage.do?showID=${printID}">
+        </div></br>
+    </c:forEach>
+</div>
+</body>
+</html>
+</body>
+</html>

@@ -5,7 +5,32 @@
     <meta charset="UTF-8">
 </head>
 <body style="text-align: center">
-<img th:if="${type=='er'}" th:src="'/'+${id}+'/'+${type}+'/showImage.html'"  style="width: 150px;height:150px;"  alt="waoooo~~~未生成！！！"  />
-<img th:if="${type=='tiao'}" th:src="'/'+${id}+'/'+${type}+'/showImage.html'"  alt="waoooo~~~未生成！！！" />
+<div class="print-div" th:if="${type=='er'}" style="margin-top: 50px;margin-bottom:50px;"  >
+    <img  th:src="'/'+${id}+'/'+${type}+'/showImage.html'"   alt="waoooo~~~未生成！！！"  /><br/>
+    <span th:text="${product.name+'  '+product.code}"></span>
+</div>
+<div  class="print-div"  th:if="${type=='tiao'}" style="margin-top: 50px;margin-bottom:50px;" >
+    <img th:src="'/'+${id}+'/'+${type}+'/showImage.html'"  alt="waoooo~~~未生成！！！" /><br/>
+    <span th:text="${product.name+'  '+product.code}"></span>
+</div>
+<a class="layui-btn icon-print print" >打印</a>
 </body>
+<script src="../../public/bus.js"></script>
+<script>
+    $(".print").on("click",function () {
+        var headhtml = "<html><head><title></title></head><body>";
+        var foothtml = "</body>";
+        // 获取div中的html内容，jquery写法如下
+        var newhtml= $(".print-div").html();
+        // 获取原来的窗口界面body的html内容，并保存起来
+        var oldhtml = document.body.innerHTML;
+        // 给窗口界面重新赋值，赋自己拼接起来的html内容
+        document.body.innerHTML = headhtml + newhtml + foothtml;
+        // 调用window.print方法打印新窗口
+        window.print();
+        // 将原来窗口body的html值回填展示
+        document.body.innerHTML = oldhtml;
+        return false;
+    })
+</script>
 </html>

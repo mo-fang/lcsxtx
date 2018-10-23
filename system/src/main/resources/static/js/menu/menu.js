@@ -25,7 +25,7 @@ layui.use(['table', 'form'], function () {
     // 页面的渲染↑
 
     //执行重新加载的方法--页面的搜索方法。 search ↓
-    $('.layui-search-body .layui-btn').on('click', function(){
+    $('.search_btn').on('click', function(){
         var type = $(this).data('type');
         active[type] ? active[type].call(this) : '';
     });
@@ -100,7 +100,7 @@ layui.use(['table', 'form'], function () {
 
     // 新增↓
     // 新增点击事件的监听 ↓
-    $(".tool-bar .btn-add").on('click', function() {
+    $(".addNews_btn").on('click', function() {
         layer.open({
             type: 2,
             anim: 2,

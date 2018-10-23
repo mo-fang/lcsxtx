@@ -13,6 +13,7 @@ public interface ProductService {
     void mkcode(Product product) throws Exception;
     boolean saveOrUpdate(Product product);
      boolean deleteByPrimaryKey(Integer id) ;
+     Product getProductById(Integer id) ;
      void deleteCode(Integer id) ;
 
 }

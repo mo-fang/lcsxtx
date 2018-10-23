@@ -99,7 +99,7 @@ layui.use(['table', 'form'], function () {
 
     // 新增↓
     // 新增点击事件的监听 ↓
-    $(".tool-bar .btn-add").on('click', function() {
+    $(".addNews_btn").on('click', function() {
         layer.open({
             type: 2,
             anim: 2,

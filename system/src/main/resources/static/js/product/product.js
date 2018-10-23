@@ -1,9 +1,9 @@
 /**
  * make by YANSHUCHUN 2018年9月20日10:16:16
  */
-layui.use(['table', 'form','upload'], function () {
+layui.use(['table', 'form', 'upload'], function () {
     var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
-    var table = layui.table,form = layui.form;
+    var table = layui.table, form = layui.form;
     // 页面的渲染↓
     table.render({
         elem: '#table_obj'
@@ -13,19 +13,19 @@ layui.use(['table', 'form','upload'], function () {
         , cols: [[ //表头
             {checkbox: true, field: 'id', title: 'ID', width: "5%", fixed: 'left'}
             , {field: 'name', title: '设备名称', width: "45%"}
-            , {field: 'code', title: '设备编码', width: "35%"}
-            , {fixed: 'right', title: '操作',width: "10%", toolbar: '#bar'}
+            , {field: 'code', title: '设备编号', width: "35%"}
+            , {fixed: 'right', title: '操作', width: "10%", toolbar: '#bar'}
         ]]
     });
     // 页面的渲染↑
 
     //执行重新加载的方法--页面的搜索方法。 search ↓
-    $('.layui-btn').on('click', function(){
+    $('.layui-btn').on('click', function () {
         var type = $(this).data('type');
         active[type] ? active[type].call(this) : '';
     });
     var active = {
-        reload: function(){
+        reload: function () {
             var code = $('#code-search').val();
             var name = $('#name-search').val();
             //执行重载
@@ -33,9 +33,9 @@ layui.use(['table', 'form','upload'], function () {
                 page: {
                     curr: 1 //重新从第 1 页开始
                 }
-                ,where: {
-                      name:name
-                    ,code:code
+                , where: {
+                    name: name
+                    , code: code
                 }
             });
         }
@@ -55,24 +55,24 @@ layui.use(['table', 'form','upload'], function () {
                 title: ['商品详情', 'background:#f2f2f2;color:#333;'],
                 shade: .5,
                 area: ['800px', '700px'],
-                content: objId+'/toProductDetail.html'
+                content: objId + '/toProductDetail.html'
             })
         } else if (layEvent === 'del') {
             layer.confirm('真的删除行么', function (index) {
                 obj.del(index); //删除对应行（tr）的DOM结构
                 layer.close(index);
                 $.ajax({
-                    url:"doDelProduct.html",
-                    type:"post",
-                    data:{id:objId},
-                    dataType:"json",
-                    success:function (data) {
+                    url: "doDelProduct.html",
+                    type: "post",
+                    data: {id: objId},
+                    dataType: "json",
+                    success: function (data) {
                         console.info(data);
-                        if (data.retCode==200){
+                        if (data.retCode == 200) {
                             active.reload();
-                            layer.msg('操作成功', {icon: 1,time:1e3});
-                        }else{
-                            layer.msg(data.message, {icon: 1,time:1e3});
+                            layer.msg('操作成功', {icon: 1, time: 1e3});
+                        } else {
+                            layer.msg(data.message, {icon: 1, time: 1e3});
                         }
                     },
                 })
@@ -86,7 +86,7 @@ layui.use(['table', 'form','upload'], function () {
                 title: ['修改', 'background:#f2f2f2;color:#333;'],
                 shade: .5,
                 area: ['600px', '500px'],
-                content: objId+'/toEidtMenu.html'
+                content: objId + '/toEidtMenu.html'
             })
         } else if (layEvent === 'er') {
             layer.open({
@@ -94,13 +94,13 @@ layui.use(['table', 'form','upload'], function () {
                 anim: 1,
                 shadeClose: false,
                 maxmin: true,
-                title: ['条码展示', 'background:#f2f2f2;color:#333;'],
+                title: ['二维码展示', 'background:#f2f2f2;color:#333;'],
                 shade: .5,
                 offset: 'auto',
                 area: ['350px', '350px'],
                 content: objId + '/er/toProductCode.html'
             });
-        }else if (layEvent === 'tiao') {
+        } else if (layEvent === 'tiao') {
             layer.open({
                 type: 2,
                 anim: 1,
@@ -109,8 +109,8 @@ layui.use(['table', 'form','upload'], function () {
                 offset: 'auto',
                 title: ['条码展示', 'background:#f2f2f2;color:#333;'],
                 shade: .5,
-                area: ['350px', '120px'],
-                content: objId+'/tiao/toProductCode.html'
+                area: ['350px', '350px'],
+                content: objId + '/tiao/toProductCode.html'
             })
         }
     });
@@ -119,7 +119,7 @@ layui.use(['table', 'form','upload'], function () {
 
     // 新增↓
     // 新增点击事件的监听 ↓
-    $(".addNews_btn").on('click', function() {
+    $(".addNews_btn").on('click', function () {
         var index = layer.open({
             type: 2,
             anim: 2,
@@ -128,12 +128,12 @@ layui.use(['table', 'form','upload'], function () {
             title: ['新增', 'background:#f2f2f2;color:#333;'],
             shade: .5,
             content: 'toAddProduct.html',
-            success:function () {
-                setTimeout(function(){
+            success: function () {
+                setTimeout(function () {
                     layer.tips('点击此处返回产品列表', '.layui-layer-setwin .layui-layer-close', {
                         tips: 3
                     });
-                },500)
+                }, 500)
             }
         });
         layer.full(index);
@@ -141,7 +141,7 @@ layui.use(['table', 'form','upload'], function () {
     //监听提交
     form.on('submit(formsub)', function (data) {
         //restful 惹的祸  期待有人能解决。 暂时先用这个笨方法解决吧  ┭┮﹏┭┮
-        var url = data.field.id==null?"doAddProduct.html":"../doAddProduct.html";
+        var url = data.field.id == null ? "doAddProduct.html" : "../doAddProduct.html";
         // layer.msg($(".layui-form").serialize());
         // return false
         $.ajax({
@@ -170,16 +170,16 @@ layui.use(['table', 'form','upload'], function () {
 
 
     // 业务相关 ↓
-    form.on('radio(menuType)',function (data) {
+    form.on('radio(menuType)', function (data) {
         var typeVal = data.value;
-        if (typeVal==0){
+        if (typeVal == 0) {
             $(".layui-form-label-parentMenucode").hide();
             $(".layui-select-parentMenucode").removeAttr('lay-verify');
             $(".layui-select-parentMenucode").removeAttr('name');
-        }else {
+        } else {
             $(".layui-form-label-parentMenucode").show();
-            $(".layui-select-parentMenucode").attr('lay-verify','required');
-            $(".layui-select-parentMenucode").attr("name","parentMenucode");
+            $(".layui-select-parentMenucode").attr('lay-verify', 'required');
+            $(".layui-select-parentMenucode").attr("name", "parentMenucode");
         }
     })
 

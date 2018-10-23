@@ -106,7 +106,7 @@ public class RoleController {
         Result result = Result.success();
         boolean b = roleService.doDelRole(id);
         if(!b)
-            result = Result.error(CodeMsg.SAVE_OR_UPDATE_FAIL);
+            result = Result.error(CodeMsg.DEL_FAIL);
         return gson.toJson(result);
     }
 

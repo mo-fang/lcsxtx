@@ -11,4 +11,5 @@ public interface UserService {
     List<SysUser> getAllUsers(SysUser user);
     boolean saveOrUpdateUser(SysUser user);
     boolean changePwd(SysUser record);
+    boolean doDelUser(Integer id);
 }

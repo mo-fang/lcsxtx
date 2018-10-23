@@ -40,7 +40,7 @@ public class ProductServiceImpl implements ProductService {
         String tiao = codetiaopath+System.getProperty("file.separator")+product.getId()+".png";
         String er = codeerpath+System.getProperty("file.separator")+product.getId()+".png";
         QrCodeUtil.encodeBarCode(product.getCode(),105,50,tiao);
-        QrCodeUtil.encodeQRCode(product.getName()+":"+product.getCode(),105,105,er);
+        QrCodeUtil.encodeQRCode(product.getCode(),105,105,er);
     }
 
     @Transactional
@@ -56,6 +56,11 @@ public class ProductServiceImpl implements ProductService {
         int i = productMapper.deleteByPrimaryKey(id);
         boolean flag = i<0?false:true;
         return flag;
+    }
+
+    @Override
+    public Product getProductById(Integer id) {
+        return productMapper.selectByPrimaryKey(id);
     }
 
     @Override

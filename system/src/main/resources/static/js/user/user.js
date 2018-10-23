@@ -18,7 +18,7 @@ layui.use(['table', 'form'], function () {
             , {field: 'name', title: '姓名',align:'center',width: '100'}
             , {field: 'phonum', title: '电话',align:'center',width: '100'}
             , {field: 'sexcode', title: '性别',templet:"#sexcode",width: '100'}
-            , {field: 'role', title: '岗位',templet:"#role",width: '100'}
+            , {field: 'role', title: '角色',templet:"#role",width: '100'}
             // , {field: 'departmentid', title: '所属部门',width: '100',templet:"#departmentid"}
             // , {field: 'postid', title: '岗位职能',width: '100',templet:"#postid"}
             , {field: 'sfzh', title: '身份证号码',width: '200'}
@@ -80,14 +80,13 @@ layui.use(['table', 'form'], function () {
                 obj.del(index); //删除对应行（tr）的DOM结构
                 layer.close(index);
                 $.ajax({
-                    url:"doDelCategory.html",
+                    url:"doDelUser.html",
                     type:"post",
                     data:{id:objId},
                     dataType:"json",
                     success:function (data) {
                         if (data.retCode==200){
                             active.reload();
-                            // location.reload();
                             layer.msg('操作成功', {icon: 1,time:1e3});
                         }else{
                             layer.msg('操作失败', {icon: 1,time:1e3});

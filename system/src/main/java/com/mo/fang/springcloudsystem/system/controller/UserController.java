@@ -72,6 +72,17 @@ public class UserController {
         modelAndView.setViewName(viewAdapter);
         return modelAndView;
     }
+
+    @RequiresPermissions("usermsg:del")
+    @PostMapping("doDelUser.html")
+    public String doDelUser(Integer id){
+        Result result = Result.success();
+        boolean b = userService.doDelUser(id);
+        if(!b)
+            result = Result.error(CodeMsg.DEL_FAIL);
+        return gson.toJson(result);
+    }
+
     @GetMapping("toChangePwd.html")
     public ModelAndView toChangePwd(ModelAndView modelAndView){
         SysUser loginUser = SysUtil.getLoginUser();
